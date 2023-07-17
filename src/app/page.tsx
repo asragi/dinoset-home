@@ -1,9 +1,11 @@
 import Image from 'next/image'
 import styles from './page.module.scss'
+import { TopContainer } from '@/components/topContainer'
 
 export default function Home() {
   return (
     <main className={styles.main}>
+      <TopContainer />
       <div className={styles.description}>
         <p>
           Get started by editing&nbsp;
