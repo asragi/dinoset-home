@@ -17,7 +17,7 @@ export const TopSideContainer = () => (
       />
       <div>恐竜定食</div>
       <div className={styles.sns}>
-        <TwitterButton />
+        <TwitterButton id="kyoryuteishoku" src="/twitter.svg" size={34}/>
       </div>
       <div className={styles.options}>
         <Link href="#">お品書き</Link>
