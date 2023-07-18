@@ -1,10 +1,11 @@
 .container {
   width: 250px;
-  background-color: orange;
+  background-color: var(--accent-color);
   margin-left: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
+  filter: drop-shadow(8px 0px 10px rgba(0,0,0,0.2));
 }
 
 .menu {
