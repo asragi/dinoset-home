@@ -1,6 +1,5 @@
 .container {
   width: 100%;
-  max-width: 1142px;
   height: 600px;
   background-color: gray;
   display: flex;
@@ -8,4 +7,5 @@
   font-weight: var(--font-weight);
   background-image: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5)),
   url("/top-background.png");
+  max-width: 1142px;
 }

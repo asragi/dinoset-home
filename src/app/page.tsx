@@ -1,11 +1,13 @@
 import Image from 'next/image'
 import styles from './page.module.scss'
 import { TopContainer } from '@/components/topContainer'
+import { MiddleContainer } from '@/components/middleContainer'
 
 export default function Home() {
   return (
     <main className={styles.main}>
       <TopContainer />
+      <MiddleContainer />
       {/*
       <div className={styles.description}>
         <p>
