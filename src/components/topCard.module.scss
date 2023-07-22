@@ -1,9 +1,15 @@
 .card {
   display: flex;
-  background-color: rgba($color: #000, $alpha: 0.3);
+  background-color: rgba($color: black, $alpha: 0.3);
   border-radius: var(--border-radius);
   padding: 32px;
   align-items: center;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.card:hover {
+  background-color: rgba($color: black, $alpha: 0.5);
 }
 
 .text {
