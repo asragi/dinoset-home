@@ -3,7 +3,7 @@ import styles from "./productComponent.module.scss";
 
 export const ProductComponent = () => {
   return (
-    <div className={styles.container}>
+    <section id="product" className={styles.container}>
       <div className={styles.headlines}>
         <Headline text="お品書き"/>
         <Headline text="Product"/>
@@ -18,6 +18,6 @@ export const ProductComponent = () => {
         </div>
         <div className={styles.image}>商品画像</div>
       </div>
-    </div>
+    </section>
   );
 };
