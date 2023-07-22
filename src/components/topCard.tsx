@@ -1,7 +1,8 @@
 import styles from "./topCard.module.scss";
+import fadeStyles from "./fade.module.scss";
 
 export const TopCard = () => (
-  <div className={styles.card}>
+  <div className={`${styles.card} ${fadeStyles.fadeUp}`}>
     <div className={styles.text}>
       つなげて遊ぶカードゲーム『Igniter』
       <br />
