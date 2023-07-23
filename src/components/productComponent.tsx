@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Headline } from "./headline";
 import styles from "./productComponent.module.scss";
 
@@ -5,18 +6,24 @@ export const ProductComponent = () => {
   return (
     <section id="product" className={styles.container}>
       <div className={styles.headlines}>
-        <Headline text="お品書き"/>
-        <Headline text="Product"/>
+        <Headline text="お品書き" />
+        <Headline text="Product" />
       </div>
       <div className={styles.products}>
         <div className={styles.description}>
           つなげて遊ぶカードゲーム『Igniter』
-          <br/>
+          <br />
           2024年ゲームマーケット春のリリースに向けて
-          <br/>
+          <br />
           現在制作中！
         </div>
-        <div className={styles.image}>商品画像</div>
+        <div className={styles.image}>
+          <Image
+            src="./igniter-thumbnail.webp"
+            width={300}
+            height={300}
+            alt="thumbnail" />
+        </div>
       </div>
     </section>
   );
