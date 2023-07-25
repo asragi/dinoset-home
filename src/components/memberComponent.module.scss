@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 32px;
+}
+
+.headlines {
+  display: flex;
+  flex-direction: column;
+  font-size: x-large;
+
+  :first-child {
+    font-size: xx-large;
+  }
+}
+
+.products {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 32px;
+
+  .description {
+    text-align: right;
+    flex-basis: 50%;
+    margin-right: 16px;
+  }
+
+  .image {
+    flex-basis: 50%;
+    margin-left: 16px;
+  }
+}
