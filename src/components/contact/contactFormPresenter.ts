@@ -11,7 +11,7 @@ export type ContactFormPresenterOut = {
   eMail: string;
   onChangeEMail: any;
   text: string;
-  onChangeText: ChangeEventHandler<HTMLInputElement>;
+  onChangeText: ChangeEventHandler<HTMLTextAreaElement>;
   onSubmit: any;
 };
 
@@ -30,7 +30,7 @@ export const ContactFormPresenter = (): ContactFormPresenterOut => {
     setEMail(afterMail);
   };
 
-  const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const afterText = e.target.value;
     setText(afterText);
   };

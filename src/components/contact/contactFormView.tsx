@@ -1,5 +1,6 @@
 "use client"
 import { ContactFormPresenter, ContactFormPresenterOut } from "./contactFormPresenter";
+import styles from "./contactForm.module.scss";
 
 const ContactFormView = ({
   name,
@@ -10,7 +11,7 @@ const ContactFormView = ({
   onChangeText,
   onSubmit,
 }: ContactFormPresenterOut) => (
-  <form onSubmit={onSubmit}>
+  <form onSubmit={onSubmit} className={styles.form}>
     <label htmlFor="name">お名前</label>
     <input
       id="name"
@@ -25,13 +26,16 @@ const ContactFormView = ({
       onChange={onChangeEMail}>
     </input>
     <label htmlFor="text">本文</label>
-    <input
+    <textarea
+      className={styles.textArea}
       id="text"
       inputMode="text"
       value={text}
-      onChange={onChangeText}>
-    </input>
-    <input type="submit" value="submit"/>
+      onChange={onChangeText}
+      rows={20}
+      required>
+    </textarea>
+    <input className={styles.submit} type="submit" value="submit"/>
   </form>
 );
 
