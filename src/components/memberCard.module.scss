@@ -1,0 +1,31 @@
+.container {
+  width: 35%;
+  background-color: gray;
+  padding: 16px;
+  margin: 16px;
+  display: flex;
+}
+
+.icon {
+  height: 64px;
+  width: 64px;
+  margin-right: 16px;
+  background-color: blue;
+}
+
+.detail {
+  display: flex;
+  flex-direction: column;
+}
+
+.description {
+  flex-grow: 1;
+}
+
+.link {
+  display: flex;
+}
+
+.snsMargin {
+  margin-right: 8px;
+}

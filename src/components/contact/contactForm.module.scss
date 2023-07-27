@@ -1,0 +1,14 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  margin: 0 auto;
+}
+
+.textArea {
+  resize: vertical;
+}
+
+.submit {
+  margin: 16px 0;
+}
