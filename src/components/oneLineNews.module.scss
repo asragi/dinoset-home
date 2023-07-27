@@ -1,0 +1,18 @@
+.container {
+  margin: 32px;
+  border: solid;
+  padding: 16px 32px;
+  border-radius: 100px;
+  display: flex;
+  line-height: 1;
+}
+
+.news {
+  color: var(--accent-color);
+  font-weight: bold;
+  margin-right: 32px;
+}
+
+.date {
+  width: 160px;
+}
