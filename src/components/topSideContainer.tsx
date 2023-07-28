@@ -1,9 +1,8 @@
-'use client'
 import Image from 'next/image';
 import styles from './topSideContainer.module.scss';
 import { TwitterButton } from './twitterButton';
-import { Link as Scroll } from 'react-scroll';
 import { InstagramButton } from './instagramButton';
+import { ScrollLink } from './ScrollLink';
 
 const logoSize = 160;
 
@@ -27,9 +26,9 @@ export const TopSideContainer = () => (
         <TwitterButton id={snsId} src="/twitter.svg" size={snsIconSize}/>
       </div>
       <div className={styles.options}>
-        <Scroll to={'product'} smooth>お品書き</Scroll>
-        <Scroll to={'member'}>メンバー</Scroll>
-        <Scroll to={'contact'}>お問い合わせ</Scroll>
+        <ScrollLink to='product' text="お品書き" className={styles.option}/>
+        <ScrollLink to='member' text="メンバー" className={styles.option}/>
+        <ScrollLink to='contact' text="お問い合わせ" className={styles.option}/>
       </div>
     </div>
   </div>

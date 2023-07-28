@@ -1,10 +1,11 @@
 import Image from "next/image";
 import { Headline } from "./headline";
 import styles from "./productComponent.module.scss";
+import common from "./middleComponentCommon.module.scss";
 
 export const ProductComponent = () => {
   return (
-    <section id="product" className={styles.container}>
+    <section id="product" className={common.container}>
       <div className={styles.headlines}>
         <Headline text="お品書き" />
         <Headline text="Product" />

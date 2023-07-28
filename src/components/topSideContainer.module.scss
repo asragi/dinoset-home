@@ -15,7 +15,7 @@
 }
 
 .sns {
-  margin-bottom: 27px;
+  margin-bottom: 16px;
   display: flex;
   justify-content: space-between;
   width: 80px;
@@ -25,4 +25,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.option {
+  margin: 8px 0;
 }
