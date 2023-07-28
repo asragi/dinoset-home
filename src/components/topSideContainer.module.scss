@@ -41,6 +41,8 @@
     height: auto;
     justify-content: flex-start;
     align-items: center;
+    background-color: var(--main-color);
+    position: fixed;
   }
 
   .title {
