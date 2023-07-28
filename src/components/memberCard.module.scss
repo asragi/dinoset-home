@@ -46,8 +46,16 @@
     align-items: center;
     text-align: center;
   }
+
+  .icon {
+    margin-right: 0;
+  }
   
   .link {
     justify-content: center;
+  }
+
+  .snsMargin {
+    margin: 4px;
   }
 }
