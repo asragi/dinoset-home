@@ -1,21 +1,25 @@
 .container {
-  width: 40%;
-  background-color: gray;
-  padding: 16px;
+  width: 45%;
+  padding: 32px;
   margin: 32px;
   display: flex;
+  border: double 3px;
+  border-radius: var(--border-radius);
+  text-align: right;
 }
 
 .icon {
-  height: 128px;
-  width: 128px;
   margin-right: 16px;
-  background-color: blue;
 }
 
 .detail {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+}
+
+.name {
+  font-size: x-large;
 }
 
 .description {
@@ -24,8 +28,9 @@
 
 .link {
   display: flex;
+  justify-content: flex-end;
 }
 
 .snsMargin {
-  margin-right: 8px;
+  margin-left: 8px;
 }
