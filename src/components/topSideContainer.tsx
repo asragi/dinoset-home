@@ -15,15 +15,15 @@ export const TopSideContainer = () => (
       <Image
         src="/logo.png"
         alt="Vercel Logo"
-        className={styles.vercelLogo}
+        className={styles.logo}
         width={logoSize}
         height={logoSize}
         priority
       />
-      <div>恐竜定食</div>
+      <div className={styles.title}>恐竜定食</div>
       <div className={styles.sns}>
         <InstagramButton id={snsId} src="/instagram.svg" size={snsIconSize} />
-        <TwitterButton id={snsId} src="/twitter.svg" size={snsIconSize}/>
+        <TwitterButton id={snsId} src="/twitter.svg" size={snsIconSize} className={styles.twitter} />
       </div>
       <div className={styles.options}>
         <ScrollLink to='product' text="お品書き" className={styles.option}/>

@@ -1,3 +1,5 @@
+@use "./mixins";
+
 .container {
   width: 250px;
   background-color: var(--accent-color);
@@ -29,4 +31,44 @@
 
 .option {
   margin: 8px 0;
+}
+
+@include mixins.tablet {
+  .container {
+    width: 100%;
+    margin: 0;
+    padding: 4px 8px;
+    height: auto;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .title {
+    font-size: large;
+  }
+
+  .logo {
+    width: 48px;
+    height: 48px;
+    margin-right: 8px;
+  }
+
+  .menu {
+    flex-direction: row;
+    width: 100%;
+  }
+
+  .options {
+    display: none;
+  }
+
+  .sns {
+    margin: 0;
+    flex-grow: 1;
+    justify-content: flex-end;
+  }
+
+  .twitter {
+    margin-left: 8px;
+  }
 }

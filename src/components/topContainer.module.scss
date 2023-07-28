@@ -1,11 +1,19 @@
+@use "./mixins";
+
 .container {
   width: 100%;
   height: 600px;
-  background-color: gray;
   display: flex;
   font-family: var(--font-mono);
   font-weight: var(--font-weight);
-  background-image: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.5)),
-  url("/top-background.png");
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.5)),
+    url("/top-background.png");
   max-width: 1142px;
+}
+
+@include mixins.tablet {
+  .container {
+    background-color: white;
+    flex-direction: column;
+  }
 }
