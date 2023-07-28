@@ -1,3 +1,5 @@
+@use "./mixins";
+
 .headlines {
   display: flex;
   flex-direction: column;
@@ -23,5 +25,15 @@
   .image {
     flex-basis: 50%;
     margin-left: 16px;
+  }
+}
+
+@include mixins.tablet {
+  .headlines {
+    display: none;
+  }
+
+  .products {
+    display: none;
   }
 }

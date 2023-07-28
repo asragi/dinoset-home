@@ -1,15 +1,9 @@
-import Image from 'next/image'
+import { Landing } from '@/components/landing'
 import styles from './page.module.scss'
-import { TopContainer } from '@/components/topContainer'
-import { MiddleContainer } from '@/components/middleContainer'
-import { FooterContainer } from '@/components/footerContainer'
-
 export default function Home() {
   return (
     <main className={styles.main}>
-      <TopContainer />
-      <MiddleContainer />
-      <FooterContainer />
+      <Landing />
       {/*
       <div className={styles.description}>
         <p>

@@ -1,3 +1,5 @@
+@use "../mixins";
+
 .form {
   display: flex;
   flex-direction: column;
@@ -11,4 +13,10 @@
 
 .submit {
   margin: 16px 0;
+}
+
+@include mixins.tablet {
+  .form {
+    width: 100%;
+  }
 }

@@ -37,12 +37,13 @@
   .container {
     width: 100%;
     margin: 0;
-    padding: 4px 8px;
+    padding: 8px 16px;
     height: auto;
     justify-content: flex-start;
     align-items: center;
     background-color: var(--main-color);
     position: fixed;
+    filter: none;
   }
 
   .title {
@@ -50,9 +51,7 @@
   }
 
   .logo {
-    width: 48px;
-    height: 48px;
-    margin-right: 8px;
+    display: none;
   }
 
   .menu {

@@ -1,6 +1,23 @@
+@use "./mixins";
+
 .container {
   flex-grow: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.logo {
+  display: none;
+}
+
+@include mixins.tablet {
+  .container {
+    background-color: var(--main-color);
+  }
+
+  .logo {
+    display: block;
+    margin: auto;
+  }
 }

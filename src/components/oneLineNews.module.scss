@@ -1,3 +1,5 @@
+@use "./mixins";
+
 .container {
   margin: 32px;
   border: solid;
@@ -15,4 +17,10 @@
 
 .date {
   width: 160px;
+}
+
+@include mixins.tablet {
+  .container {
+    display: none;
+  }
 }

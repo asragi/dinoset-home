@@ -13,9 +13,8 @@
 
 @include mixins.tablet {
   .container {
-    background-color: white;
     flex-direction: column;
-    height: 300px;
-    background-size: cover;
+    height: 100vh;
+    background-image: none;
   }
 }

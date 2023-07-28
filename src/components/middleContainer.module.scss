@@ -1,3 +1,5 @@
+@use "./mixins";
+
 .container {
   width: 100%;
   background-color: white;
@@ -5,4 +7,12 @@
   flex-direction: column;
   color: var(--main-color);
   padding: 16px 64px 64px;
+}
+
+@include mixins.tablet {
+  .container {
+    padding: 8px 4px;
+    background-color: transparent;
+    color: white;
+  }
 }
