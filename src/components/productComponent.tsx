@@ -25,6 +25,9 @@ export const ProductComponent = () => {
             height={300}
             alt="thumbnail" />
         </div>
+        <div className={styles.shortDescription}>
+          『IGNITER』(制作中)
+        </div>
       </div>
     </section>
   );

@@ -26,14 +26,34 @@
     flex-basis: 50%;
     margin-left: 16px;
   }
+
+  .shordDescription {
+    display: none;
+  }
 }
 
 @include mixins.tablet {
-  .headlines {
-    display: none;
-  }
-
   .products {
-    display: none;
+    flex-direction: column;
+
+    .description {
+      display: none;
+    }
+
+    .image {
+      margin: 0;
+
+      > img {
+        height: 200px;
+        object-fit: cover;
+      }
+    }
+
+    .shortDescription {
+      display: block;
+      text-align: right;
+      font-size: small;
+      width: 100%;
+    }
   }
 }
