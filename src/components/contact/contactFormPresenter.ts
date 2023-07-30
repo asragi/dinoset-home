@@ -1,4 +1,5 @@
 "use client"
+import { sendMail } from "@/utils/sendMail";
 import { ChangeEventHandler, MouseEventHandler, useState } from "react";
 
 const namePlaceHolder = "Name";
@@ -30,19 +31,19 @@ export const ContactFormPresenter = (): ContactFormPresenterOut => {
   const hasValue = (value: string): boolean => (!!value);
 
   const isNameValid = (value: string) => {
-    if(!hasValue(value)) return false;
+    if (!hasValue(value)) return false;
     return true;
   }
 
   const isEmailValid = (value: string) => {
-    if(!hasValue(value)) return false;
+    if (!hasValue(value)) return false;
     const matchRegExp = eMailRegExp.test(value);
-    if(!matchRegExp) return false;
+    if (!matchRegExp) return false;
     return true;
   }
 
   const isTextValid = (value: string) => {
-    if(!hasValue(value)) return false;
+    if (!hasValue(value)) return false;
     return true;
   }
 
@@ -65,15 +66,15 @@ export const ContactFormPresenter = (): ContactFormPresenterOut => {
     let nameErrorTmp = false;
     let eMailErrorTmp = false;
     let textErrorTmp = false;
-    if(!isNameValid(name)) {
+    if (!isNameValid(name)) {
       console.warn("invalid name");
       nameErrorTmp = true;
     }
-    if(!isEmailValid(eMail)) {
+    if (!isEmailValid(eMail)) {
       console.warn("invalid email");
       eMailErrorTmp = true;
     }
-    if(!isTextValid(text)) {
+    if (!isTextValid(text)) {
       console.warn("invalid text");
       textErrorTmp = true;
     }
@@ -88,8 +89,25 @@ export const ContactFormPresenter = (): ContactFormPresenterOut => {
       return;
     }
 
-    console.log(`SUBMIT`);
+    const isSubmitSucceed = submit();
+    console.log(`SUBMIT ${isSubmitSucceed}`);
   };
+
+  const submit = () => {
+    let success = false;
+    sendMail(
+      {
+        from_name: name,
+        email: eMail,
+        message: text,
+      }
+    )
+      .catch((e) => { setTimeout(() => { throw e; }) })
+      .then(() => {
+        success = true;
+      });
+    return success;
+  }
 
   return {
     name,
