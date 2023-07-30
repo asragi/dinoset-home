@@ -1,5 +1,6 @@
 "use client"
 import { sendMail } from "@/utils/sendMail";
+import { after } from "node:test";
 import { ChangeEventHandler, MouseEventHandler, useState } from "react";
 
 const namePlaceHolder = "";
@@ -18,6 +19,8 @@ export type ContactFormPresenterOut = {
   nameError: boolean;
   eMailError: boolean;
   textError: boolean;
+  submitting: boolean;
+  submitted: boolean;
 };
 
 export const ContactFormPresenter = (): ContactFormPresenterOut => {
@@ -27,6 +30,8 @@ export const ContactFormPresenter = (): ContactFormPresenterOut => {
   const [nameError, setNameError] = useState(false);
   const [eMailError, setEMailError] = useState(false);
   const [textError, setTextError] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const hasValue = (value: string): boolean => (!!value);
 
@@ -50,12 +55,15 @@ export const ContactFormPresenter = (): ContactFormPresenterOut => {
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     const afterName = e.target.value;
     setName(afterName);
+    if (nameError && isNameValid(afterName)) {
+      setNameError(false);
+    }
   };
 
   const onChangeEMail = (e: React.ChangeEvent<HTMLInputElement>) => {
     const afterMail = e.target.value;
     setEMail(afterMail);
-    if(eMailError && isEmailValid(afterMail)) {
+    if (eMailError && isEmailValid(afterMail)) {
       setEMailError(false);
     }
   };
@@ -63,6 +71,9 @@ export const ContactFormPresenter = (): ContactFormPresenterOut => {
   const onChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     const afterText = e.target.value;
     setText(afterText);
+    if (textError && isTextValid(afterText)) {
+      setTextError(false);
+    }
   };
 
   const onSubmit = () => {
@@ -92,12 +103,11 @@ export const ContactFormPresenter = (): ContactFormPresenterOut => {
       return;
     }
 
-    const isSubmitSucceed = submit();
-    console.log(`SUBMIT ${isSubmitSucceed}`);
+    submit();
   };
 
   const submit = () => {
-    let success = false;
+    setSubmitting(true);
     sendMail(
       {
         from_name: name,
@@ -106,10 +116,14 @@ export const ContactFormPresenter = (): ContactFormPresenterOut => {
       }
     )
       .then(() => {
-        success = true;
+        setSubmitted(true);
+        setSubmitting(false);
+        console.log(`SUBMIT SUCCSESS`);
       })
-      .catch((e) => { setTimeout(() => { throw e; }) });
-    return success;
+      .catch((e) => {
+        setSubmitting(false);
+        setTimeout(() => { throw e; });
+      });
   }
 
   return {
@@ -123,5 +137,7 @@ export const ContactFormPresenter = (): ContactFormPresenterOut => {
     nameError,
     eMailError,
     textError,
+    submitting,
+    submitted,
   }
 };
