@@ -102,10 +102,10 @@ export const ContactFormPresenter = (): ContactFormPresenterOut => {
         message: text,
       }
     )
-      .catch((e) => { setTimeout(() => { throw e; }) })
       .then(() => {
         success = true;
-      });
+      })
+      .catch((e) => { setTimeout(() => { throw e; }) });
     return success;
   }
 
