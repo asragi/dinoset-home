@@ -15,7 +15,10 @@ const ContactFormView = ({
   textError,
 }: ContactFormPresenterOut) => (
   <form className={styles.form}>
-    <label htmlFor="name">お名前</label>
+    <label htmlFor="name">
+      お名前
+      {nameError && <span className={styles.error}>※お名前を入力してください</span>}
+    </label>
     <input
       id="name"
       value={name}
@@ -23,7 +26,10 @@ const ContactFormView = ({
       maxLength={50}
       required>
     </input>
-    <label htmlFor="email">e-mail</label>
+    <label htmlFor="email">
+      e-mail
+      {eMailError && <span className={styles.error}>※E-Mailの入力内容をご確認ください</span>}
+    </label>
     <input
       id="email"
       inputMode="email"
@@ -32,7 +38,10 @@ const ContactFormView = ({
       maxLength={50}
       required>
     </input>
-    <label htmlFor="text">本文</label>
+    <label htmlFor="text">
+      本文
+      {textError && <span className={styles.error}>※本文を入力してください</span> }
+    </label>
     <textarea
       className={styles.textArea}
       id="text"
@@ -44,7 +53,7 @@ const ContactFormView = ({
       maxLength={2000}
       >
     </textarea>
-    <input className={styles.submit} type="button" value="submit" onClick={onSubmit}/>
+    <input className={styles.submit} type="button" value="送信" onClick={onSubmit}/>
   </form>
 );
 

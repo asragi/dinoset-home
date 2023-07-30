@@ -9,10 +9,17 @@
 
 .textArea {
   resize: vertical;
+  font-family: inherit;
 }
 
 .submit {
   margin: 16px 0;
+}
+
+.error {
+  font-size: small;
+  margin-left: 8px;
+  color: var(--error-color);
 }
 
 @include mixins.tablet {

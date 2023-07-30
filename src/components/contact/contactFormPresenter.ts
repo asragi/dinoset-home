@@ -2,9 +2,9 @@
 import { sendMail } from "@/utils/sendMail";
 import { ChangeEventHandler, MouseEventHandler, useState } from "react";
 
-const namePlaceHolder = "Name";
-const mailPlaceHolder = "Mail";
-const textPlaceHolder = "Text";
+const namePlaceHolder = "";
+const mailPlaceHolder = "";
+const textPlaceHolder = "";
 const eMailRegExp = /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
 
 export type ContactFormPresenterOut = {
@@ -55,6 +55,9 @@ export const ContactFormPresenter = (): ContactFormPresenterOut => {
   const onChangeEMail = (e: React.ChangeEvent<HTMLInputElement>) => {
     const afterMail = e.target.value;
     setEMail(afterMail);
+    if(eMailError && isEmailValid(afterMail)) {
+      setEMailError(false);
+    }
   };
 
   const onChangeText = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
