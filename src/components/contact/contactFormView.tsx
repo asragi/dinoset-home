@@ -10,20 +10,27 @@ const ContactFormView = ({
   text,
   onChangeText,
   onSubmit,
+  nameError,
+  eMailError,
+  textError,
 }: ContactFormPresenterOut) => (
-  <form onSubmit={onSubmit} className={styles.form}>
+  <form className={styles.form}>
     <label htmlFor="name">お名前</label>
     <input
       id="name"
       value={name}
-      onChange={onChangeName}>
+      onChange={onChangeName}
+      maxLength={50}
+      required>
     </input>
     <label htmlFor="email">e-mail</label>
     <input
       id="email"
       inputMode="email"
       value={eMail}
-      onChange={onChangeEMail}>
+      onChange={onChangeEMail}
+      maxLength={50}
+      required>
     </input>
     <label htmlFor="text">本文</label>
     <textarea
@@ -33,9 +40,11 @@ const ContactFormView = ({
       value={text}
       onChange={onChangeText}
       rows={20}
-      required>
+      required
+      maxLength={2000}
+      >
     </textarea>
-    <input className={styles.submit} type="submit" value="submit"/>
+    <input className={styles.submit} type="button" value="submit" onClick={onSubmit}/>
   </form>
 );
 
