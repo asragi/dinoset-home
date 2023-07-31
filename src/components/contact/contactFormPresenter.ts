@@ -1,6 +1,5 @@
 "use client"
 import { sendMail } from "@/utils/sendMail";
-import { after } from "node:test";
 import { ChangeEventHandler, MouseEventHandler, useState } from "react";
 
 const namePlaceHolder = "";
@@ -120,7 +119,7 @@ export const ContactFormPresenter = (): ContactFormPresenterOut => {
         setSubmitting(false);
         console.log(`SUBMIT SUCCSESS`);
       })
-      .catch((e) => {
+      .catch((e: Error) => {
         setSubmitting(false);
         setTimeout(() => { throw e; });
       });
