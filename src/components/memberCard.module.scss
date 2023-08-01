@@ -1,7 +1,7 @@
 @use "./mixins";
 
 .container {
-  width: 45%;
+  width: 35%;
   padding: 32px;
   margin: 32px;
   display: flex;
@@ -12,12 +12,14 @@
 
 .icon {
   margin-right: 16px;
+  border-radius: 100px;
 }
 
 .detail {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex-grow: 1;
 }
 
 .name {

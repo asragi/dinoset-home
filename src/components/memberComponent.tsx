@@ -15,15 +15,16 @@ export const MemberComponent = () => {
       <div className={styles.products}>
         <MemberCard
           name={"如月まこと"}
-          description={"ゲームデザイナー/エンジニア"}
-          src={tmpIconSrc}
+          description={"ゲームデザイナー"}
+          src={"/icon/ksrgmkt.png"}
           twitterId="mktksrg"
-          instagramId="mktksrg"
         />
         <MemberCard
-          name={"如月まこと"}
-          description={"ゲームデザイナー/エンジニア"}
-          src={tmpIconSrc}
+          name={"euraru"}
+          description={"イラストレーター"}
+          src={"/icon/euraru.png"}
+          twitterId="euraru"
+          instagramId="euraru_insta"
         />
       </div>
     </section>
