@@ -2,6 +2,7 @@ import Image from "next/image";
 import { InstagramButton } from "./instagramButton";
 import styles from "./memberCard.module.scss";
 import { TwitterButton } from "./twitterButton";
+import rotate from "./rotation.module.scss";
 
 const iconSize = 96;
 
@@ -22,7 +23,7 @@ export const MemberCard = ({
 }: Props) => (
   <div className={styles.container}>
     <Image
-      className={styles.icon}
+      className={`${styles.icon} ${rotate.rotateOnHover}`}
       src={src}
       width={iconSize}
       height={iconSize}

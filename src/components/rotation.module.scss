@@ -1,0 +1,7 @@
+.rotateOnHover {
+    transition: 1s;
+}
+
+.rotateOnHover:hover {
+    transform: rotate(720deg);
+}
