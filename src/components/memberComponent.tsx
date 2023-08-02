@@ -25,6 +25,7 @@ export const MemberComponent = () => {
           src={"/icon/euraru.png"}
           twitterId="euraru"
           instagramId="euraru_insta"
+          eMail="info&&euraru.net"
         />
       </div>
     </section>

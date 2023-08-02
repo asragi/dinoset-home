@@ -3,6 +3,7 @@ import { InstagramButton } from "./instagramButton";
 import styles from "./memberCard.module.scss";
 import { TwitterButton } from "./twitterButton";
 import rotate from "./rotation.module.scss";
+import { MailButton } from "./mailButton";
 
 const iconSize = 96;
 
@@ -12,6 +13,7 @@ type Props = {
   description: string;
   twitterId?: string;
   instagramId?: string;
+  eMail?: string;
 };
 
 export const MemberCard = ({
@@ -20,6 +22,7 @@ export const MemberCard = ({
   description,
   twitterId,
   instagramId,
+  eMail
 }: Props) => (
   <div className={styles.container}>
     <Image
@@ -49,6 +52,13 @@ export const MemberCard = ({
             src="./twitter.svg"
             size={30} 
             className={styles.snsMargin}/>
+        )}
+        {eMail && (
+          <MailButton
+            eMail={eMail}
+            size={30}
+            className={styles.snsMargin}
+          />
         )}
       </div>
     </div>
