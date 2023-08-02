@@ -12,7 +12,7 @@ export const ProductComponent = () => {
       </div>
       <div className={styles.products}>
         <div className={styles.description}>
-          つなげて遊ぶカードゲーム『Igniter』
+          つなげて遊ぶカードゲーム『IGNITER』
           <br />
           2024年ゲームマーケット春のリリースに向けて
           <br />

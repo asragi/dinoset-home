@@ -1,11 +1,18 @@
+"use client"
 import styles from "./topCard.module.scss";
 import fadeStyles from "./fade.module.scss";
 import Image from "next/image";
+import { Link as Scroll } from "react-scroll";
 
 export const TopCard = () => (
-  <div className={`${styles.card} ${fadeStyles.fadeUp}`}>
+  <Scroll
+    className={`${styles.card} ${fadeStyles.fadeUp}`}
+    to="product"
+    smooth
+    offset={-100}
+    >
     <div className={styles.text}>
-      つなげて遊ぶカードゲーム『Igniter』
+      つなげて遊ぶカードゲーム『IGNITER』
       <br />
       2024年ゲームマーケット春のリリースに向けて
       <br />
@@ -19,5 +26,5 @@ export const TopCard = () => (
         height={300}
         alt="thumbnail" />
     </div>
-  </div>
+  </Scroll>
 );

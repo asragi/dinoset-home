@@ -33,7 +33,7 @@ const ContactFormView = ({
         disabled={isDisable()}>
       </input>
       <label htmlFor="email">
-        e-mail
+        E-Mail
         {eMailError && <span className={styles.error}>※E-Mailの入力内容をご確認ください</span>}
       </label>
       <input

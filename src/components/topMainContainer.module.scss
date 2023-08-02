@@ -7,7 +7,7 @@
   justify-content: center;
 }
 
-.logo {
+.logoContainer {
   display: none;
 }
 
@@ -16,7 +16,7 @@
     background-color: var(--main-color);
   }
 
-  .logo {
+  .logoContainer {
     display: block;
     margin: auto;
   }
