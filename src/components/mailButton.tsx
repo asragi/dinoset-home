@@ -16,6 +16,7 @@ export const MailButton = ({ eMail, size, className }: Props) => {
 
   const onClick = (e: React.MouseEvent) => {
     e.preventDefault();
+    // スパム回避のため"&&"を"@"として代替しているので実行時に戻す
     const target = `mailto:${eMail.replace("&&", "@")}`;
     location.href = target;
   };
