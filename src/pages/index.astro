@@ -1,0 +1,26 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import GlobalHeader from "../components/GlobalHeader.astro";
+import Hero from "../components/Hero.astro";
+import XTimeline from "../components/XTimeline.astro";
+import Works from "../components/Works.astro";
+import Members from "../components/Members.astro";
+import ContactForm from "../components/ContactForm.astro";
+import GlobalFooter from "../components/GlobalFooter.astro";
+import WorkDialog from "../components/WorkDialog.astro";
+import { getWorks } from "../lib/works";
+const { works, featured } = await getWorks();
+---
+
+<BaseLayout ogImageAlt={featured.data.title}>
+  <GlobalHeader />
+  <main id="main" tabindex="-1">
+    <Hero work={featured} />
+    <XTimeline />
+    <Works works={works} />
+    <Members />
+    <ContactForm />
+  </main>
+  <GlobalFooter />
+  <WorkDialog works={works} />
+</BaseLayout>

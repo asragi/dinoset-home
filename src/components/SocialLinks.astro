@@ -1,0 +1,18 @@
+---
+import X from "./icons/X.astro";
+import Instagram from "./icons/Instagram.astro";
+import { site } from "../config/site";
+---
+
+<div class="social-links">
+  <a class="icon-link" href={site.sns.x} aria-label={`${site.name}の X`}>
+    <X />
+  </a>
+  <a
+    class="icon-link"
+    href={site.sns.instagram}
+    aria-label={`${site.name}の Instagram`}
+  >
+    <Instagram />
+  </a>
+</div>

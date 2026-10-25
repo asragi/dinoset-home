@@ -72,7 +72,7 @@ public/icon/              # src/assets/members/ に移す
 
 ## 4. 技術スタック
 
-バージョンは着手時点の最新安定版を入れる。ただし Node は 24 に固定する（Node 25 以降には corepack が同梱されないため）。
+バージョンは着手時点の最新安定版を入れる。CI は Node 24 を使い、`.nvmrc` は `24`、`engines.node` は `">=24"` とする。ローカルでは Node 26 と Homebrew の pnpm / corepack を使用する。
 
 | 用途 | 旧 | 新 |
 | --- | --- | --- |
@@ -89,7 +89,7 @@ public/icon/              # src/assets/members/ に移す
 | 型チェック | `next build` | `astro check`（`@astrojs/check` と `typescript`） |
 | Lint / Format | ESLint 8 + eslint-config-next | ESLint 最新版（flat config）+ `eslint-plugin-astro`、Prettier + `prettier-plugin-astro` |
 | パッケージマネージャ | yarn v1 | pnpm（`packageManager` フィールドで固定し、corepack で有効化） |
-| Node | 16（CI） | 24（`.nvmrc`、`engines: "^24"`） |
+| Node | 16（CI） | 24（CI・`.nvmrc`）、`engines.node: ">=24"`（ローカルは 26） |
 | CI | `actions/*` v2〜v3 | `withastro/action` と `actions/deploy-pages` の最新メジャー |
 
 ### 対応ブラウザ

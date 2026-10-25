@@ -1,0 +1,117 @@
+---
+import { Picture } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import X from "./icons/X.astro";
+import Instagram from "./icons/Instagram.astro";
+import Mail from "./icons/Mail.astro";
+
+interface Props {
+  member: CollectionEntry<"members">;
+  delay: number;
+}
+
+const {
+  member: { data },
+  delay,
+} = Astro.props;
+// §6.4: never print the address as-is; JS assembles the mailto: link.
+const [user, domain] = data.links.email?.split("@") ?? [];
+---
+
+<article class="member-card" data-reveal data-reveal-delay={delay}>
+  <Picture
+    src={data.icon}
+    formats={["avif", "webp"]}
+    width={88}
+    height={88}
+    densities={[1, 2]}
+    alt=""
+    loading="lazy"
+  />
+  <div class="member-card__body">
+    <h3 class="member-card__name">{data.name}</h3>
+    <p class="member-card__role">{data.role}</p>
+    <div class="social-links member-card__links">
+      {data.links.x && (
+        <a
+          class="icon-link"
+          href={data.links.x}
+          aria-label={`${data.name}の X`}
+        >
+          <X />
+        </a>
+      )}
+      {data.links.instagram && (
+        <a
+          class="icon-link"
+          href={data.links.instagram}
+          aria-label={`${data.name}の Instagram`}
+        >
+          <Instagram />
+        </a>
+      )}
+      {user && domain && (
+        <>
+          <a
+            class="icon-link member-card__email js-only"
+            data-user={user}
+            data-domain={domain}
+            aria-label={`${data.name}にメールを送る`}
+          >
+            <Mail />
+          </a>
+          <noscript>
+            <span class="member-card__email-text">
+              {user} [at] {domain}
+            </span>
+          </noscript>
+        </>
+      )}
+    </div>
+  </div>
+</article>
+
+<script>
+  import "../scripts/member-email";
+</script>
+
+<style>
+  .member-card {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-m);
+    padding: var(--space-l);
+    background: var(--color-surface);
+    border-radius: var(--radius-m);
+  }
+
+  .member-card :global(img) {
+    width: var(--member-icon-size);
+    height: var(--member-icon-size);
+    object-fit: cover;
+    border-radius: var(--radius-pill);
+  }
+
+  .member-card__body {
+    min-width: 0;
+  }
+
+  .member-card__name {
+    font-size: var(--text-h3);
+  }
+
+  .member-card__role {
+    color: var(--color-muted);
+    font-size: var(--text-caption);
+  }
+
+  .member-card__links {
+    margin: var(--space-2xs) 0 0 calc(var(--space-s) * -1);
+  }
+
+  .member-card__email-text {
+    padding-left: var(--space-s);
+    font-size: var(--text-caption);
+  }
+</style>

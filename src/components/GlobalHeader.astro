@@ -1,0 +1,192 @@
+---
+import Brand from "./Brand.astro";
+import SocialLinks from "./SocialLinks.astro";
+import Menu from "./icons/Menu.astro";
+import { site } from "../config/site";
+---
+
+<header id="global-header">
+  <a class="skip-link" href="#main">
+    本文へスキップ
+  </a>
+  <div class="header-pill">
+    <Brand />
+    <div class="header-pill__desktop">
+      <nav aria-label="メイン">
+        <ul class="header-nav">
+          {site.nav.map(({ href, label }) => (
+            <li>
+              <a href={href}>{label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <SocialLinks />
+    </div>
+    <button
+      class="icon-link header-pill__menu"
+      type="button"
+      aria-label="メニュー"
+      popovertarget="mobile-menu"
+    >
+      <Menu />
+    </button>
+  </div>
+  <div id="mobile-menu" popover>
+    <nav aria-label="メイン（モバイル）">
+      <ul class="mobile-nav">
+        {site.nav.map(({ href, label }) => (
+          <li>
+            <a href={href}>{label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    <SocialLinks />
+  </div>
+</header>
+
+<script>
+  import "../scripts/header";
+</script>
+
+<style>
+  #global-header {
+    position: sticky;
+    top: var(--header-offset);
+    z-index: var(--layer-header);
+    width: min(var(--content-max), 100% - var(--gutter) * 2);
+    margin: var(--header-offset) auto;
+  }
+
+  .skip-link {
+    position: fixed;
+    top: var(--space-xs);
+    left: var(--space-xs);
+    z-index: var(--layer-skip);
+    padding: var(--space-xs) var(--space-s);
+    background: var(--color-bg);
+    border: var(--border-width) solid var(--color-line-strong);
+    border-radius: var(--radius-pill);
+    font-weight: var(--weight-ui);
+  }
+
+  .skip-link:not(:focus) {
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .header-pill {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-s);
+    height: var(--header-height);
+    padding-inline: var(--space-m) var(--space-xs);
+    background: var(--color-bg);
+    border: var(--border-width) solid var(--color-line);
+    border-radius: var(--radius-pill);
+    transition:
+      border-color var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out);
+  }
+
+  #global-header[data-scrolled] .header-pill {
+    border-color: transparent;
+    box-shadow: var(--shadow-raised);
+  }
+
+  .header-pill__desktop {
+    display: none;
+    align-items: center;
+    gap: var(--space-m);
+  }
+
+  .header-nav {
+    display: flex;
+    gap: var(--space-m);
+  }
+
+  .header-nav a,
+  .mobile-nav a {
+    color: var(--color-ink);
+    font-weight: var(--weight-ui);
+  }
+
+  .header-nav a {
+    font-size: var(--text-caption);
+  }
+
+  .header-nav a:hover,
+  .mobile-nav a:hover {
+    color: var(--color-accent);
+  }
+
+  #mobile-menu {
+    position: fixed;
+    inset: auto;
+    top: calc(var(--header-offset) + var(--header-height) + var(--space-xs));
+    left: var(--gutter);
+    right: var(--gutter);
+    width: auto;
+    margin: 0;
+    padding: var(--space-xs) var(--space-m) var(--space-s);
+    background: var(--color-bg);
+    color: var(--color-ink);
+    border: var(--border-width) solid var(--color-line);
+    border-radius: var(--radius-m);
+    box-shadow: var(--shadow-raised);
+    opacity: 0;
+    transform: translateY(calc(var(--space-xs) * -1));
+    transition:
+      opacity var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out),
+      display var(--duration-fast) allow-discrete,
+      overlay var(--duration-fast) allow-discrete;
+  }
+
+  #mobile-menu:popover-open {
+    opacity: 1;
+    transform: none;
+  }
+
+  @starting-style {
+    #mobile-menu:popover-open {
+      opacity: 0;
+      transform: translateY(calc(var(--space-xs) * -1));
+    }
+  }
+
+  .mobile-nav {
+    margin-bottom: var(--space-xs);
+  }
+
+  .mobile-nav a {
+    display: block;
+    padding-block: var(--space-s);
+    border-bottom: var(--border-width) solid var(--color-line);
+  }
+
+  #mobile-menu :global(.social-links) {
+    margin-left: calc(var(--space-s) * -1);
+  }
+
+  @media (min-width: 48rem) {
+    .header-pill {
+      padding-inline: var(--space-m) var(--space-s);
+    }
+
+    .header-pill__desktop {
+      display: flex;
+    }
+
+    .header-pill__menu,
+    #mobile-menu {
+      display: none;
+    }
+  }
+</style>

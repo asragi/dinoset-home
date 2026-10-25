@@ -1,0 +1,109 @@
+:root {
+  /* Color */
+  --color-bg: #ffffff;
+  --color-surface: #f3f5f9;
+  --color-ink: #14213d;
+  --color-muted: #5b6b85;
+  --color-line: #dde3ec; /* 装飾の罫線 */
+  --color-line-strong: #7d8aa0; /* 入力欄・副ボタンの枠（白地で 3:1 以上） */
+  --color-accent: #2459a8; /* ロゴの青 */
+  --color-accent-hover: #1c4787;
+  --color-accent-2: #f29b38; /* ロゴのオレンジ */
+  --color-error: #c43d32;
+
+  /* Typography */
+  --font-sans: "M PLUS 2 Variable", system-ui, sans-serif;
+  --text-caption: 0.8125rem;
+  --text-body: 0.9375rem;
+  --text-lead: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+  --text-h3: clamp(1.125rem, 1rem + 0.6vw, 1.5rem);
+  --text-h2: clamp(1.625rem, 1.3rem + 1.4vw, 2.5rem);
+  --text-hero: clamp(2.25rem, 1.4rem + 4vw, 4.5rem);
+  --leading-body: 1.8;
+  --leading-heading: 1.3;
+  --tracking-body: 0.02em;
+  --tracking-label: 0.12em;
+
+  /* Space */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-s: 1rem;
+  --space-m: 1.5rem;
+  --space-l: clamp(2rem, 1.5rem + 2vw, 3.5rem);
+  --space-section: clamp(5rem, 3.5rem + 6vw, 10rem);
+  --gutter: clamp(1rem, 0.4rem + 3vw, 2.5rem);
+  --content-max: 1120px;
+
+  /* Shape */
+  --radius-pill: 9999px;
+  --radius-m: 16px;
+  --radius-s: 10px;
+  --shadow-raised:
+    0 1px 2px rgb(20 33 61 / 0.06), 0 6px 16px rgb(20 33 61 / 0.08);
+  --shadow-overlay:
+    0 2px 6px rgb(20 33 61 / 0.08), 0 24px 48px rgb(20 33 61 / 0.16);
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.25, 0.8, 0.25, 1);
+  --duration-fast: 0.2s;
+  --duration-reveal: 0.7s;
+
+  /* Layout */
+  --header-height: 64px;
+  --header-offset: 16px;
+}
+
+/*
+ * Implementation tokens (not part of RENEWAL.md §7.4).
+ * Fixed sizes taken from the spec (§8) and a few values the components need,
+ * kept here so component styles never hard-code numbers.
+ */
+:root {
+  /* Typography weights (§7.4: 400 / 500 / 700 only) */
+  --weight-body: 400;
+  --weight-ui: 500;
+  --weight-heading: 700;
+
+  /* Lines and focus (§7.3, §9.2) */
+  --border-width: 1px;
+  --focus-width: 2px;
+  --focus-offset: 2px;
+  --shadow-focus: 0 0 0 4px rgb(36 89 168 / 0.15);
+  --color-backdrop: rgb(20 33 61 / 0.5); /* §8.5 */
+
+  /* Sizes */
+  --dot-size: 6px;
+  --icon-size: 20px;
+  --target-size: 44px;
+  --logo-size: 36px; /* §8.1 */
+  --member-icon-size: 88px; /* §8.6 */
+  --timeline-width: 550px; /* §8.3 */
+  --timeline-height: 600px; /* §8.3 */
+  --form-width: 640px; /* §8.7 */
+  --dialog-width: 760px; /* §8.5 */
+  --dialog-max-height: 90svh;
+  --gallery-height: min(55svh, 30rem);
+  --textarea-height: 11rem;
+  --hero-art-height: min(
+    calc(
+      100svh - var(--header-height) - var(--header-offset) * 2 -
+        var(--space-l) * 2
+    ),
+    46rem
+  );
+  --hero-art-mobile-height: min(56svh, 30rem);
+  --hero-title-fit: 16cqi; /* longest phrase of the title fits on one line */
+  --work-image-ratio: 16 / 10; /* §8.4 */
+
+  /* Motion */
+  --reveal-distance: 16px; /* §7.5 */
+  --dialog-distance: 12px; /* §8.5 */
+  --hover-scale: 1.03; /* §8.4 */
+  --hover-nudge: 4px; /* §8.4 */
+  --hero-media-delay: 0.15s; /* §7.5: text first, then image */
+
+  /* Stacking */
+  --layer-raised: 1;
+  --layer-header: 10;
+  --layer-skip: 20;
+}

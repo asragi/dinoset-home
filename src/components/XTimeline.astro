@@ -1,0 +1,73 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import { site } from "../config/site";
+---
+
+<section id="news" class="section" aria-labelledby="news-title">
+  <div class="container">
+    <SectionHeading id="news-title" label="News" title="お知らせ" />
+    <div class="x-feed">
+      <div class="x-feed__embed" data-x-embed>
+        <a
+          class="twitter-timeline"
+          href={site.sns.x}
+          data-dnt="true"
+          data-lang="ja"
+          data-height="600"
+          data-chrome="noheader nofooter"
+        >
+          {site.name}のポスト
+        </a>
+      </div>
+      <a class="x-feed__fallback" href={site.sns.x}>
+        X で最新情報を見る <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  import "../scripts/lazy-x-embed";
+</script>
+
+<style>
+  #news {
+    background: var(--color-surface);
+  }
+
+  .x-feed {
+    max-width: var(--timeline-width);
+    margin-inline: auto;
+  }
+
+  .x-feed__embed {
+    min-height: var(--timeline-height);
+  }
+
+  .x-feed__embed.is-collapsed {
+    display: none;
+  }
+
+  .x-feed__embed :global(iframe) {
+    max-width: 100% !important; /* widgets.js sets an inline width */
+  }
+
+  :global(html:not(.js)) .x-feed__embed {
+    display: none;
+  }
+
+  .x-feed__fallback {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-s);
+    margin-top: var(--space-s);
+    padding-block: var(--space-s);
+    border-bottom: var(--border-width) solid var(--color-line-strong);
+    font-weight: var(--weight-ui);
+  }
+
+  .x-feed__fallback:hover {
+    border-bottom-color: currentColor;
+  }
+</style>

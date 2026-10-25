@@ -1,0 +1,287 @@
+---
+import { Picture } from "astro:assets";
+import Close from "./icons/Close.astro";
+import {
+  imageWidths,
+  metaItems,
+  type Work,
+  type ReleasedWork,
+} from "../lib/works";
+
+interface Props {
+  works: Work[];
+}
+
+const works = Astro.props.works.filter(
+  (work): work is ReleasedWork => work.data.status === "released",
+);
+---
+
+<dialog id="work-dialog" aria-labelledby="work-dialog-title">
+  <div class="work-dialog__inner">
+    <button
+      class="icon-link work-dialog__close"
+      type="button"
+      aria-label="閉じる"
+      autofocus
+    >
+      <Close />
+    </button>
+    <div class="work-dialog__content" data-dialog-content></div>
+  </div>
+</dialog>
+
+{works.map(({ id, data }) => {
+  const images = [data.keyImage, ...data.gallery];
+  return (
+    <template id={`work-${id}`}>
+      <div
+        class="work-gallery"
+        role="region"
+        aria-label={`${data.title}の画像（横にスクロールできます）`}
+        tabindex="0"
+      >
+        {images.map((src, index) => (
+          <figure class="work-gallery__item">
+            <Picture
+              src={src}
+              formats={["avif", "webp"]}
+              widths={imageWidths(src, [480, 720, 1080, 1440])}
+              sizes="(min-width: 48rem) 680px, 100vw"
+              alt={
+                index === 0
+                  ? `${data.title}のキービジュアル`
+                  : `${data.title}の紹介画像 ${index}`
+              }
+              loading="lazy"
+            />
+            <figcaption class="work-gallery__count">
+              {index + 1} / {images.length}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+      <div class="work-dialog__body">
+        <h2 id="work-dialog-title" class="work-dialog__title">
+          {data.title}
+        </h2>
+        <p class="work-dialog__description">{data.description}</p>
+        <dl class="work-details">
+          {metaItems(data).map(({ label, value }) => (
+            <div>
+              <dt>{label}</dt>
+              <dd>{value}</dd>
+            </div>
+          ))}
+        </dl>
+        <ul class="genre-list" aria-label="ジャンル">
+          {data.genres.map((genre) => (
+            <li>{genre}</li>
+          ))}
+        </ul>
+        <h3 class="work-dialog__subheading">出展イベント</h3>
+        <ul class="event-list">
+          {data.events.map((event) => (
+            <li>
+              <span>{event.name}</span>
+              <span>ブース {event.booth}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="button-row">
+          {data.links.shop ? (
+            <a class="button-primary" href={data.links.shop}>
+              通販で購入
+            </a>
+          ) : (
+            <button class="button-primary" type="button" disabled>
+              通販準備中
+            </button>
+          )}
+          <a class="button-secondary" href={data.links.gameMarket}>
+            ゲームマーケットで見る
+          </a>
+        </div>
+      </div>
+    </template>
+  );
+})}
+
+<script>
+  import "../scripts/work-dialog";
+</script>
+
+<style>
+  #work-dialog {
+    width: 100%;
+    max-width: 100%;
+    max-height: var(--dialog-max-height);
+    margin: auto 0 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: var(--color-bg);
+    color: var(--color-ink);
+    border-radius: var(--radius-m) var(--radius-m) 0 0;
+    box-shadow: var(--shadow-overlay);
+    opacity: 0;
+    transform: translateY(var(--dialog-distance));
+    transition:
+      opacity var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out),
+      display var(--duration-fast) allow-discrete,
+      overlay var(--duration-fast) allow-discrete;
+  }
+
+  #work-dialog[open] {
+    opacity: 1;
+    transform: none;
+  }
+
+  #work-dialog::backdrop {
+    background: var(--color-backdrop);
+    opacity: 0;
+    transition:
+      opacity var(--duration-fast) var(--ease-out),
+      display var(--duration-fast) allow-discrete,
+      overlay var(--duration-fast) allow-discrete;
+  }
+
+  #work-dialog[open]::backdrop {
+    opacity: 1;
+  }
+
+  @starting-style {
+    #work-dialog[open] {
+      opacity: 0;
+      transform: translateY(var(--dialog-distance));
+    }
+
+    #work-dialog[open]::backdrop {
+      opacity: 0;
+    }
+  }
+
+  .work-dialog__inner {
+    position: relative;
+    padding: var(--space-m) var(--gutter) var(--space-l);
+  }
+
+  .work-dialog__close {
+    position: sticky;
+    top: 0;
+    z-index: var(--layer-raised);
+    display: flex;
+    margin: 0 0 var(--space-xs) auto;
+    background: var(--color-bg);
+  }
+
+  .work-gallery {
+    display: grid;
+    grid-auto-columns: 100%;
+    grid-auto-flow: column;
+    gap: var(--space-s);
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+    border-radius: var(--radius-m);
+  }
+
+  .work-gallery__item {
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+
+  .work-gallery__item :global(img) {
+    width: 100%;
+    height: var(--gallery-height);
+    object-fit: contain;
+    background: var(--color-surface);
+    border-radius: var(--radius-m);
+  }
+
+  .work-gallery__count {
+    padding-top: var(--space-2xs);
+    color: var(--color-muted);
+    font-size: var(--text-caption);
+    text-align: end;
+  }
+
+  .work-dialog__body {
+    padding-top: var(--space-m);
+  }
+
+  .work-dialog__title {
+    font-size: var(--text-h2);
+  }
+
+  .work-dialog__description {
+    margin-block: var(--space-m);
+  }
+
+  .work-details {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-s);
+    padding-block: var(--space-m);
+    border-block: var(--border-width) solid var(--color-line);
+  }
+
+  .work-details dt {
+    color: var(--color-muted);
+    font-size: var(--text-caption);
+  }
+
+  .work-details dd {
+    font-weight: var(--weight-ui);
+  }
+
+  .genre-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-block: var(--space-m);
+  }
+
+  .genre-list li {
+    padding: var(--space-2xs) var(--space-s);
+    background: var(--color-surface);
+    border-radius: var(--radius-pill);
+    font-size: var(--text-caption);
+  }
+
+  .work-dialog__subheading {
+    margin-top: var(--space-l);
+    font-size: var(--text-body);
+  }
+
+  .event-list {
+    margin-block: var(--space-xs) var(--space-l);
+  }
+
+  .event-list li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-2xs) var(--space-s);
+    padding-block: var(--space-xs);
+    border-bottom: var(--border-width) solid var(--color-line);
+    color: var(--color-muted);
+    font-size: var(--text-caption);
+  }
+
+  @media (min-width: 48rem) {
+    #work-dialog {
+      width: min(var(--dialog-width), 100% - var(--gutter) * 2);
+      margin: auto;
+      border-radius: var(--radius-m);
+    }
+
+    .work-dialog__inner {
+      padding: var(--space-m) var(--space-l) var(--space-l);
+    }
+
+    .work-details {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>

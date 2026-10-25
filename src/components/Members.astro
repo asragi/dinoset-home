@@ -1,0 +1,44 @@
+---
+import { getCollection } from "astro:content";
+import SectionHeading from "./SectionHeading.astro";
+import MemberCard from "./MemberCard.astro";
+
+const members = (await getCollection("members")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const STAGGER_MS = 80; // §7.5
+---
+
+<section id="members" class="section" aria-labelledby="members-title">
+  <div class="container">
+    <SectionHeading id="members-title" label="Members" title="メンバー" />
+    <ul class="member-grid">
+      {members.map((member, index) => (
+        <li>
+          <MemberCard member={member} delay={index * STAGGER_MS} />
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  #members {
+    border-top: var(--border-width) solid var(--color-line);
+  }
+
+  .member-grid {
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  .member-grid > li {
+    display: grid;
+  }
+
+  @media (min-width: 48rem) {
+    .member-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

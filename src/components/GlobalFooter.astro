@@ -1,0 +1,98 @@
+---
+import Brand from "./Brand.astro";
+import SocialLinks from "./SocialLinks.astro";
+import { site } from "../config/site";
+import { tokyoYear } from "../lib/works";
+
+const year = tokyoYear();
+---
+
+<footer id="global-footer">
+  <div class="container">
+    <div class="footer__main">
+      <div class="footer__brand">
+        <Brand />
+        <p class="footer__tagline">{site.tagline}</p>
+      </div>
+      <div class="footer__links">
+        <nav aria-label="フッター">
+          <ul class="footer__nav">
+            {site.nav.map(({ href, label }) => (
+              <li>
+                <a href={href}>{label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <SocialLinks />
+      </div>
+    </div>
+    <p class="footer__copyright">
+      © 2023–{year} {site.name}
+    </p>
+  </div>
+</footer>
+
+<style>
+  #global-footer {
+    padding-block: var(--space-l);
+    background: var(--color-bg);
+    border-top: var(--border-width) solid var(--color-line);
+  }
+
+  .footer__main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-m);
+  }
+
+  .footer__tagline {
+    margin-top: var(--space-xs);
+    color: var(--color-muted);
+    font-size: var(--text-caption);
+  }
+
+  .footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-s) var(--space-m);
+  }
+
+  .footer__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs) var(--space-m);
+  }
+
+  .footer__nav a {
+    color: var(--color-ink);
+    font-size: var(--text-caption);
+  }
+
+  .footer__nav a:hover {
+    color: var(--color-accent);
+  }
+
+  .footer__links :global(.social-links) {
+    margin-inline: calc(var(--space-s) * -1);
+  }
+
+  .footer__copyright {
+    margin-top: var(--space-l);
+    color: var(--color-muted);
+    font-size: var(--text-caption);
+  }
+
+  @media (min-width: 48rem) {
+    .footer__main {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer__links :global(.social-links) {
+      margin-inline: 0 calc(var(--space-s) * -1);
+    }
+  }
+</style>

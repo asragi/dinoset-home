@@ -1,0 +1,77 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import WorkCard from "./WorkCard.astro";
+import ComingSoonCard from "./ComingSoonCard.astro";
+import type { Work, ReleasedWork } from "../lib/works";
+
+interface Props {
+  works: Work[];
+}
+
+const { works } = Astro.props;
+const STAGGER_MS = 80; // §7.5
+---
+
+<section id="works" class="section" aria-labelledby="works-title">
+  <div class="container">
+    <SectionHeading id="works-title" label="Works" title="作品" />
+    <ul class="work-list">
+      {works.map((work, index) => (
+        <li class="work-list__item">
+          {work.data.status === "released" ? (
+            <WorkCard work={work as ReleasedWork} delay={index * STAGGER_MS} />
+          ) : (
+            <ComingSoonCard work={work} delay={index * STAGGER_MS} />
+          )}
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .work-list {
+    container: work-list / inline-size;
+  }
+
+  .work-list__item + .work-list__item {
+    margin-top: var(--space-l);
+    padding-top: var(--space-l);
+    border-top: var(--border-width) solid var(--color-line);
+  }
+
+  /* Shared by WorkCard and ComingSoonCard. */
+  .work-list :global(.work-card) {
+    position: relative;
+    display: grid;
+    align-items: center;
+    gap: var(--space-m);
+  }
+
+  .work-list :global(.work-card__media) {
+    aspect-ratio: var(--work-image-ratio);
+    overflow: hidden;
+    background: var(--color-surface);
+    border-radius: var(--radius-m);
+  }
+
+  .work-list :global(.work-card__body) {
+    min-width: 0;
+  }
+
+  .work-list :global(.work-card__title) {
+    font-size: var(--text-h3);
+  }
+
+  .work-list :global(.work-card__catch) {
+    margin-block: var(--space-xs) var(--space-s);
+    color: var(--color-muted);
+  }
+
+  @container work-list (min-width: 40rem) {
+    .work-list :global(.work-card) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: var(--space-l);
+    }
+  }
+</style>
