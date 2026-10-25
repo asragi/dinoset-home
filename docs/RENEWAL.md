@@ -31,6 +31,7 @@
 | デザイン | ロゴや「定食」のモチーフは使わない。ロゴの色はアクセントとしてだけ使う。https://vrc-ai.com/ を参考にするが、盗用にならないようにする（§7） |
 | アニメーション | スクロールに連動したフェードインを要所にだけ入れる（§7.5） |
 | 分担 | AI がデザインまで一通り作り、オーナーが仕上げる |
+| 作品情報 | 紹介文と出展情報はゲームマーケットの掲載内容を使う。画像は今ある素材で作り、必要に応じてオーナーが差し替える |
 | ホスティング | GitHub Pages を継続し、`www.kyoryuteishoku.com` で公開する |
 
 ---
@@ -471,7 +472,7 @@ export const site = {
 - 中身は `featured: true` の作品
 - デスクトップは 2 カラム（テキスト 5 : 画像 7）、モバイルは画像を上にして縦に積む
 - テキスト側
-  - `.badge`「New Release」と、出展ラベル（§6.2 の規則。例：「次回出展 ゲームマーケット2026秋 H069」）
+  - `.badge`「New Release」と、出展ラベル（§6.2 の規則。例：「頒布 ゲームマーケット2026秋 H069」）
   - タイトル（`h2`、`--text-hero`）
   - キャッチコピー（`--text-lead`、`--color-muted`）
   - メタ情報：人数・時間・年齢・価格を横に並べ、1px の縦罫線で区切る
@@ -482,9 +483,12 @@ export const site = {
 
 - X の公式アカウント（`site.sns.x`）のタイムラインを埋め込む。publish.x.com の埋め込みコード（`<a class="twitter-timeline">`）に `data-dnt="true"`、`data-lang="ja"`、`data-height="600"`、`data-chrome="noheader nofooter"` を付ける
 - 制約：2023 年以降、X にログインしていない閲覧者には、タイムラインが「Nothing to see here」と空で表示される。中身は別ドメインの iframe なので、空かどうかをページ側から判定することはできない
-- そのため、表示されない場合に備えて次の 2 段で対応する
-  1. **埋め込みが描画されない場合**（広告ブロッカーなどで `widgets.js` が読めない、または読み込み後 8 秒以内に `twttr.events` の `rendered` が発火しない）：埋め込み用の要素を隠し、「X で最新情報を見る」のリンクカードを表示する。`<a class="twitter-timeline">` はスクリプトが動かなければただのリンクとして残るので、JS が無効な環境でもリンクは読める
-  2. **描画されたが空の場合**（ログインしていない閲覧者）：判定できないので、埋め込みの下に「X で最新情報を見る」のリンクを常に置く
+- フォールバックは、埋め込みの下に常に置く「X で最新情報を見る」のリンク 1 つだけにする（空表示のときもこれで X へ行ける）
+- 埋め込みが描画されないと判定できる場合は、埋め込みの領域（`<a class="twitter-timeline">` と `min-height`）を畳み、リンクだけを残す
+  - `widgets.js` の `<script>` で `onerror` が起きたら、すぐに畳む
+  - 読み込み後 8 秒以内に `rendered` が発火しなければ畳む。その後に `rendered` が来たら領域を元に戻す
+  - イベントは公式の非同期スニペット（`window.twttr` のスタブと `twttr.ready()`）で登録する（読み込み完了前に `bind` して失敗するのを防ぐ）
+  - JS が無効な環境では `html:not(.js) .twitter-timeline { display: none }` で隠す
 - `widgets.js` は、IntersectionObserver でセクションが近づいてから読み込む（`src/scripts/lazy-x-embed.ts`）
 - 幅は最大 550px で中央に置く。読み込み前後の高さの変化を抑えるため、埋め込み要素に `min-height` を指定する
 - 背景は `--color-surface`
@@ -583,7 +587,7 @@ await send(site.emailjs.serviceId, site.emailjs.templateId, {
 
 ### 9.3 パフォーマンス
 
-- Lighthouse（モバイル）の目標：Performance 95 以上、Accessibility 100、Best Practices 100、SEO 100。X の埋め込みはサードパーティ Cookie で Best Practices を下げるため、`platform.twitter.com` をブロックして計測する（Chrome DevTools の Request blocking）
+- Lighthouse（モバイル）の目標：Performance 95 以上、Accessibility 100、Best Practices 100、SEO 100。X の埋め込みはサードパーティ Cookie で Best Practices を下げるため、Lighthouse CLI の `--blocked-url-patterns="*platform.twitter.com*"` で X をブロックして計測する
 - 初回表示の JS は、X の埋め込みを除いて数 KB 程度に収める
 - 画像はすべて `astro:assets` で読み込み、サイズを指定して CLS を防ぐ
 
@@ -689,7 +693,3 @@ await send(site.emailjs.serviceId, site.emailjs.templateId, {
 | 1 | euraru さんのメールアドレス（旧コードの `info&&euraru.net` が誤記か、別の表記か） | 確認待ち |
 | 2 | 通販ページの URL（できたら `links.shop` に入れる） | 準備中。それまでは「通販準備中」と表示する |
 | 3 | 制作中の新作で出してよい情報 | 準備中。それまでは §6.2 の Coming soon のまま |
-
-- 画像は今ある素材で作り、必要に応じてオーナーが差し替える
-- 作品の紹介文と出展情報は、ゲームマーケットの掲載内容のまま使う
-- フォントは M PLUS 2 で進め、調整は Phase 7 で行う
