@@ -1,0 +1,169 @@
+---
+import { Picture } from "astro:assets";
+import { site } from "../config/site";
+import {
+  eventLabel,
+  imageWidths,
+  metaItems,
+  type ReleasedWork,
+} from "../lib/works";
+
+interface Props {
+  work: ReleasedWork;
+}
+
+const { work } = Astro.props;
+const { data } = work;
+const event = data.events.at(-1);
+const hasShop = data.links.shop !== null;
+---
+
+<section id="hero" aria-labelledby="hero-title">
+  <h1 class="visually-hidden">
+    {site.name} {site.tagline}
+  </h1>
+  <div class="hero container">
+    <div class="hero__copy">
+      <div class="hero__labels">
+        <span class="badge" lang="en">
+          New Release
+        </span>
+        {event && (
+          <p class="hero__event">
+            {eventLabel(event.date)} {event.name}{" "}
+            <span class="hero__booth">{event.booth}</span>
+          </p>
+        )}
+      </div>
+      <h2 id="hero-title" class="hero__title">
+        {data.title}
+      </h2>
+      <p class="hero__catch">{data.catchcopy}</p>
+      <ul class="game-meta" aria-label="ゲーム情報">
+        {metaItems(data).map(({ value }) => (
+          <li>{value}</li>
+        ))}
+      </ul>
+      <div class="button-row hero__actions">
+        {hasShop && (
+          <a class="button-primary" href={data.links.shop}>
+            通販で購入
+          </a>
+        )}
+        <button
+          class:list={[
+            hasShop ? "button-secondary" : "button-primary",
+            "js-only",
+          ]}
+          type="button"
+          data-work-id={work.id}
+        >
+          くわしく見る
+        </button>
+        <a class="button-secondary" href={data.links.gameMarket}>
+          ゲームマーケットで見る
+        </a>
+      </div>
+    </div>
+    <div class="hero__media">
+      <Picture
+        src={data.keyImage}
+        formats={["avif", "webp"]}
+        widths={imageWidths(data.keyImage)}
+        sizes="(min-width: 48rem) 50vw, 100vw"
+        alt={`${data.title}のキービジュアル`}
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    display: grid;
+    align-content: center;
+    align-items: center;
+    gap: var(--space-l);
+    min-height: calc(100svh - var(--header-height) - var(--header-offset) * 2);
+    padding-block: var(--space-l);
+  }
+
+  .hero__copy {
+    min-width: 0;
+    animation: hero-enter var(--duration-reveal) var(--ease-out) both;
+  }
+
+  .hero__labels {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-xs) var(--space-s);
+    margin-bottom: var(--space-m);
+  }
+
+  .hero__event {
+    color: var(--color-muted);
+    font-size: var(--text-caption);
+  }
+
+  .hero__booth {
+    white-space: nowrap;
+  }
+
+  .hero__copy {
+    container-type: inline-size;
+  }
+
+  .hero__title {
+    font-size: min(var(--text-hero), var(--hero-title-fit));
+    line-break: strict;
+  }
+
+  .hero__catch {
+    margin-block: var(--space-m);
+    color: var(--color-muted);
+    font-size: var(--text-lead);
+    word-break: auto-phrase;
+  }
+
+  .hero__actions {
+    margin-top: var(--space-l);
+  }
+
+  .hero__media {
+    display: flex;
+    justify-content: center;
+    grid-row: 1;
+    min-width: 0;
+    animation: hero-enter var(--duration-reveal) var(--ease-out)
+      var(--hero-media-delay) both;
+  }
+
+  .hero__media :global(img) {
+    width: auto;
+    max-height: var(--hero-art-mobile-height);
+    border-radius: var(--radius-m);
+  }
+
+  @keyframes hero-enter {
+    from {
+      opacity: 0;
+      transform: translateY(var(--reveal-distance));
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .hero {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    }
+
+    .hero__media {
+      grid-row: auto;
+    }
+
+    .hero__media :global(img) {
+      max-height: var(--hero-art-height);
+    }
+  }
+</style>

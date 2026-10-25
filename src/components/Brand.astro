@@ -1,0 +1,40 @@
+---
+import { Picture } from "astro:assets";
+import logo from "../assets/logo.png";
+import { site } from "../config/site";
+---
+
+<a class="brand" href="#top">
+  <Picture
+    src={logo}
+    formats={["avif", "webp"]}
+    width={36}
+    height={36}
+    densities={[1, 2]}
+    alt=""
+    loading="eager"
+  />
+  <span>{site.name}</span>
+</a>
+
+<style>
+  .brand {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: var(--space-xs);
+    color: var(--color-ink);
+    font-weight: var(--weight-heading);
+    text-decoration: none;
+  }
+
+  .brand:hover {
+    color: var(--color-ink);
+  }
+
+  .brand :global(img) {
+    width: var(--logo-size);
+    height: var(--logo-size);
+    border-radius: var(--radius-pill);
+  }
+</style>

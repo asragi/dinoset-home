@@ -1,0 +1,17 @@
+- id: ksrgmkt
+  order: 1
+  name: 如月まこと
+  role: ゲームデザイナー
+  icon: ../assets/members/ksrgmkt.png
+  links:
+    x: https://x.com/mktksrg
+
+- id: euraru
+  order: 2
+  name: euraru
+  role: イラストレーター
+  icon: ../assets/members/euraru.png
+  links:
+    x: https://x.com/euraru
+    instagram: https://www.instagram.com/euraru_insta/
+    email: info@euraru.net

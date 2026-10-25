@@ -1,0 +1,52 @@
+- id: crash-combo-kungfu
+  order: 1
+  status: released # released | coming-soon
+  featured: true
+  title: クラッシュ・コンボ・カンフー！
+  catchcopy: 相手の切り札を見抜き 5カウントの読み合いを制し カードをつなげて華麗なコンボを決め 相手をぶっとばそう！
+  description: 刻々と変わる相手の手札を読み合う2人対戦カードゲーム。読み勝ったらカードを次々とつなげてコンボを発動。大きなダメージを狙えますが、つなげるほど手札は減ります。「打撃」「崩し」「カウンター」の3すくみと技の速さで攻防の主導権を奪い合い、相手を打ち倒して勝利を目指します。
+  events:
+    - { name: ゲームマーケット2026春, booth: P53, date: null }
+    - { name: ゲームマーケット2026秋, booth: H069, date: 2026-10-17 }
+  price: 2500
+  players: { min: 2, max: 2 }
+  playTime: { min: 15, max: 20 }
+  age: 8
+  genres: [対戦, ファンタジー, はったり／ブラフ, 反射神経]
+  keyImage: ../assets/works/crash-combo-kungfu/key.png
+  gallery:
+    - ../assets/works/crash-combo-kungfu/gallery-1.png
+    - ../assets/works/crash-combo-kungfu/gallery-2.png
+    - ../assets/works/crash-combo-kungfu/playguide-0.png
+    - ../assets/works/crash-combo-kungfu/playguide-1.png
+  links:
+    gameMarket: https://gamemarket.jp/game/189551
+    shop: null
+
+- id: igniter
+  order: 2
+  status: released
+  featured: false
+  title: IGNITER
+  catchcopy: カードを"つなげて"魔法を【発動】！奇跡の魔法を発動して偉大な魔法使いになろう
+  description: 最大4人で遊べる対戦ボードゲーム。手札のカードをお互いに交換しながら必要なカードを集め、先に条件を達成したプレイヤーが勝利します。カードをつなげて魔法を発動すると、相手の手札を封じたり自分のデッキを強化したりと、多彩な効果を場に及ぼせます。54枚すべてのカードに魔法の世界をモチーフにしたイラストを描いています。
+  events:
+    - { name: ゲームマーケット2024秋, booth: B03, date: null }
+  price: 2500
+  players: { min: 2, max: 4 }
+  playTime: { min: 25, max: 45 }
+  age: 8
+  genres: [対戦, ファンタジー]
+  keyImage: ../assets/works/igniter/key.png
+  gallery:
+    - ../assets/works/igniter/gallery-1.png
+    - ../assets/works/igniter/gallery-2.jpg
+  links:
+    gameMarket: https://gamemarket.jp/game/184475
+    shop: null
+
+- id: coming-soon-1
+  order: 3
+  status: coming-soon
+  title: 新作
+  catchcopy: 制作中
