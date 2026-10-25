@@ -32,7 +32,7 @@
 | アニメーション | スクロールに連動したフェードインを要所にだけ入れる（§7.5） |
 | 分担 | AI がデザインまで一通り作り、オーナーが仕上げる |
 | 作品情報 | 紹介文と出展情報はゲームマーケットの掲載内容を使う。画像は今ある素材で作り、必要に応じてオーナーが差し替える |
-| ホスティング | GitHub Pages を継続し、`www.kyoryuteishoku.com` で公開する |
+| ホスティング | GitHub Pages を継続し、`kyoryuteishoku.ragi.house` で公開する |
 
 ---
 
@@ -50,7 +50,7 @@ yarn.lock
 yarn-error.log
 .next/
 .github/workflows/nextjs.yml
-CNAME                     # public/CNAME に移す（§10）
+CNAME                     # 新ドメインで public/CNAME を作り直す（§10）
 public/next.svg
 public/vercel.svg
 public/top-background.png
@@ -65,7 +65,7 @@ public/icon/              # src/assets/members/ に移す
 
 ### 引き継ぐ
 
-- `public/logo.png`：README が外部から参照しているので public にも残す。サイト内では `src/assets/logo.png` にコピーして使う
+- `public/logo.png`：README から参照するので public にも残す（README の URL は新ドメインに書き換える）。サイト内では `src/assets/logo.png` にコピーして使う
 - EmailJS の Service ID、Template ID、Public Key と、テンプレートの変数名（§8.7）
 
 ---
@@ -168,7 +168,7 @@ export const site = {
   name: "恐竜定食",
   tagline: "ボードゲーム制作サークル",
   description: "ボードゲーム制作サークル「恐竜定食」の公式サイト。最新作『クラッシュ・コンボ・カンフー！』ほか作品情報。",
-  url: "https://www.kyoryuteishoku.com",
+  url: "https://kyoryuteishoku.ragi.house",
   sns: {
     x: "https://x.com/kyoryuteishoku",
     instagram: "https://www.instagram.com/kyoryuteishoku/",
@@ -572,7 +572,7 @@ await send(site.emailjs.serviceId, site.emailjs.templateId, {
 
 - `<html lang="ja">`
 - `title`：`恐竜定食 | ボードゲーム制作サークル`。`description`：`site.description`
-- canonical：Astro は自動で出力しないので、`BaseLayout.astro` に `new URL(Astro.url.pathname, Astro.site)` で書く。`astro.config.mjs` に `site: "https://www.kyoryuteishoku.com"` を設定する
+- canonical：Astro は自動で出力しないので、`BaseLayout.astro` に `new URL(Astro.url.pathname, Astro.site)` で書く。`astro.config.mjs` に `site: "https://kyoryuteishoku.ragi.house"` を設定する
 - OGP：`og:image` は絶対 URL で出す。画像は `crash-combo-kungfu/sns.png` を 1200×630 に加工して `public/og.png` にする。`twitter:card` は `summary_large_image`
 - ファビコン：`logo.png` から `favicon.ico`（32px）と `apple-touch-icon.png`（180px）を作る。ベクター版のロゴは無いので SVG のファビコンは作らない
 - sitemap は入れない（1 ページだけのため）
@@ -600,7 +600,12 @@ await send(site.emailjs.serviceId, site.emailjs.templateId, {
   - `permissions`：`contents: read`、`pages: write`、`id-token: write`
   - build ジョブ：`withastro/action`（`node-version: 24` を明示的に渡す。pnpm は自動で検出される）
   - deploy ジョブ：`actions/deploy-pages`
-- 独自ドメインは、リポジトリの Settings → Pages の Custom domain で管理する。Actions でデプロイする場合、CNAME ファイルは使われない。`public/CNAME` は手動デプロイなどに備えて置いておくだけ
+- ドメインは `kyoryuteishoku.ragi.house`（旧ドメイン `kyoryuteishoku.com` は手放した。リダイレクトは用意しない）
+- 独自ドメインは、リポジトリの Settings → Pages の Custom domain で管理する。Actions でデプロイする場合、CNAME ファイルは使われない。`public/CNAME`（中身は `kyoryuteishoku.ragi.house`）は手動デプロイなどに備えて置いておくだけ
+- 切り替え手順（オーナー作業）
+  1. ragi.house の DNS に `kyoryuteishoku` の CNAME レコードを追加し、`asragi.github.io` に向ける
+  2. GitHub のアカウント設定 → Pages で `ragi.house` をドメイン検証する（他人にサブドメインを乗っ取られるのを防ぐため。未検証なら推奨）
+  3. リポジトリの Settings → Pages の Custom domain を `kyoryuteishoku.ragi.house` に変更し、DNS チェックが通ったら Enforce HTTPS を有効にする
 - PR で `pnpm astro check`、`pnpm lint`、`pnpm build` を実行するワークフローを追加する
 
 ---
@@ -658,8 +663,9 @@ await send(site.emailjs.serviceId, site.emailjs.templateId, {
 - [ ] README を更新する（開発手順、作品・メンバーの更新方法、`schedule` が無効になったときの再有効化の手順）
 - [ ] 実機（iOS Safari / Android Chrome）で確認する
 - [ ] §12 をすべて確認してから `main` にマージする
-- [ ] EmailJS の許可ドメインを `www.kyoryuteishoku.com` と `localhost` に設定する（オーナー）
-- [ ] 本番でフォーム送信と独自ドメインを確認する
+- [ ] EmailJS の許可ドメインを `kyoryuteishoku.ragi.house` と `localhost` に設定する（オーナー）
+- [ ] §10 のドメイン切り替え手順を行う（オーナー）
+- [ ] 本番でフォーム送信と、`https://kyoryuteishoku.ragi.house` で表示されることを確認する
 
 ### Phase 7：オーナーによるデザイン調整
 
@@ -681,7 +687,7 @@ await send(site.emailjs.serviceId, site.emailjs.templateId, {
 - [ ] JS を無効にしても全セクションと、各作品の基本情報・ゲームマーケットへのリンクが表示される（ダイアログとフォーム送信は JS が必要）
 - [ ] キーボードだけで全操作でき、`prefers-reduced-motion` で動きが止まる
 - [ ] Lighthouse の目標（§9.3）を満たす
-- [ ] `main` への push で `www.kyoryuteishoku.com` にデプロイされる
+- [ ] `main` への push で `kyoryuteishoku.ragi.house` にデプロイされる
 - [ ] Next.js / React / Sass / react-scroll / yarn への依存が残っていない
 
 ---
