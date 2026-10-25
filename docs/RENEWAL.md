@@ -286,10 +286,10 @@ export const site = {
   links:
     x: https://x.com/euraru
     instagram: https://www.instagram.com/euraru_insta/
-    email: info@euraru.net   # §13 #1
+    email: info@euraru.net
 ```
 
-メールは `mailto:` のリンクとして出し、難読化はしない（`mailto:` にする以上、アドレスは見えてしまうため）。
+旧サイトでは本人がスパム対策で `info&&euraru.net` と崩して表記していたので、その意図を引き継ぐ。HTML にはアドレスをそのまま書かず、ユーザー名とドメインを `data-user` / `data-domain` に分けて出力し、JS で `mailto:` リンクを組み立てる。JS が無効な環境では `<noscript>` で「info [at] euraru.net」と表示する。
 
 ---
 
@@ -690,6 +690,5 @@ await send(site.emailjs.serviceId, site.emailjs.templateId, {
 
 | # | 内容 | 状態 |
 | --- | --- | --- |
-| 1 | euraru さんのメールアドレス（旧コードの `info&&euraru.net` が誤記か、別の表記か） | 確認待ち |
-| 2 | 通販ページの URL（できたら `links.shop` に入れる） | 準備中。それまでは「通販準備中」と表示する |
-| 3 | 制作中の新作で出してよい情報 | 準備中。それまでは §6.2 の Coming soon のまま |
+| 1 | 通販ページの URL | 準備中。決まるまでは `links.shop: null` のままにし、「通販準備中」と表示する |
+| 2 | 制作中の新作の情報 | 公開しない。§6.2 の Coming soon のまま表示する |
