@@ -32,7 +32,7 @@ pnpm preview
 
 ## 作品の更新
 
-`src/data/works.yaml` を編集します。画像は `src/assets/works/{id}/` に追加し、YAML からの相対パス（例：`../assets/works/igniter/key.png`）で指定します。ビルド時に AVIF / WebP が生成されます。
+`src/data/works.yaml` を編集します。画像は `src/assets/works/{id}/` に追加し、YAML からの相対パス（例：`../assets/works/igniter/key.jpg`）で指定します。ビルド時に AVIF / WebP が生成されます。
 
 - `id` は一意の英数字・ハイフン、`order` は表示順です。
 - `status: released` はタイトル、紹介文、画像、人数・時間・年齢・価格、ジャンル、イベント、リンクを既存データに沿って設定します。
