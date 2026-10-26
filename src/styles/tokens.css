@@ -69,18 +69,16 @@
   --focus-width: 2px;
   --focus-offset: 2px;
   --shadow-focus: 0 0 0 4px rgb(36 89 168 / 0.15);
-  --color-backdrop: rgb(20 33 61 / 0.5); /* §8.5 */
+  --color-backdrop: rgb(20 33 61 / 0.5); /* §8.4 */
 
   /* Sizes */
   --dot-size: 6px;
   --icon-size: 20px;
   --target-size: 44px;
   --logo-size: 36px; /* §8.1 */
-  --member-icon-size: 88px; /* §8.6 */
-  --timeline-width: 550px; /* §8.3 */
-  --timeline-height: 600px; /* §8.3 */
-  --form-width: 640px; /* §8.7 */
-  --dialog-width: 760px; /* §8.5 */
+  --member-icon-size: 88px; /* §8.5 */
+  --form-width: 640px; /* §8.6 */
+  --dialog-width: 760px; /* §8.4 */
   --dialog-max-height: 90svh;
   --gallery-height: min(55svh, 30rem);
   --textarea-height: 11rem;
@@ -93,13 +91,13 @@
   );
   --hero-art-mobile-height: min(56svh, 30rem);
   --hero-title-fit: 16cqi; /* longest phrase of the title fits on one line */
-  --work-image-ratio: 16 / 10; /* §8.4 */
+  --work-image-ratio: 16 / 10; /* §8.3 */
 
   /* Motion */
   --reveal-distance: 16px; /* §7.5 */
-  --dialog-distance: 12px; /* §8.5 */
-  --hover-scale: 1.03; /* §8.4 */
-  --hover-nudge: 4px; /* §8.4 */
+  --dialog-distance: 12px; /* §8.4 */
+  --hover-scale: 1.03; /* §8.3 */
+  --hover-nudge: 4px; /* §8.3 */
   --hero-media-delay: 0.15s; /* §7.5: text first, then image */
 
   /* Stacking */
