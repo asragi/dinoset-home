@@ -51,6 +51,8 @@
   /* Layout */
   --header-height: 64px;
   --header-offset: 16px;
+  /* Space the sticky header takes in the document flow. */
+  --header-block: calc(var(--header-height) + var(--header-offset) * 2);
 }
 
 /*
@@ -83,10 +85,7 @@
   --gallery-height: min(55svh, 30rem);
   --textarea-height: 11rem;
   --hero-art-height: min(
-    calc(
-      100svh - var(--header-height) - var(--header-offset) * 2 -
-        var(--space-l) * 2
-    ),
+    calc(100svh - var(--header-block) * 2 - var(--space-l) * 2),
     46rem
   );
   --hero-art-mobile-height: min(56svh, 30rem);

@@ -80,13 +80,20 @@ const hasShop = data.links.shop !== null;
 </section>
 
 <style>
+  /* Slide under the sticky header so the hero fills the viewport. */
+  #hero {
+    margin-top: calc(var(--header-block) * -1);
+    background: var(--color-bg);
+  }
+
+  /* Equal top and bottom padding centers the content on the viewport. */
   .hero {
     display: grid;
     align-content: center;
     align-items: center;
     gap: var(--space-l);
-    min-height: calc(100svh - var(--header-height) - var(--header-offset) * 2);
-    padding-block: var(--space-l);
+    min-height: 100svh;
+    padding-block: calc(var(--header-block) + var(--space-l));
   }
 
   .hero__copy {
