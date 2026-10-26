@@ -394,6 +394,7 @@ export const site = {
   /* Layout */
   --header-height: 64px;
   --header-offset: 16px;
+  --header-block: calc(var(--header-height) + var(--header-offset) * 2); /* ヘッダーが文書内で取る高さ */
 }
 ```
 
@@ -435,7 +436,7 @@ export const site = {
 ```
 
 - id は固定する（アンカーリンクの飛び先であり、オーナーがスタイルを直すときの起点にもなる）
-- 各セクションに `scroll-margin-top: calc(var(--header-height) + var(--header-offset) * 2)` を設定する
+- 各セクションに `scroll-margin-top: var(--header-block)` を設定する
 - 見出しの階層：`h1` は 1 つだけで、`.visually-hidden` の「恐竜定食 ボードゲーム制作サークル」を `#hero` の先頭に置く。アイキャッチの作品タイトルと各セクションの見出しは `h2`、作品・メンバー名は `h3`
 
 セクション見出しは `SectionHeading.astro` で共通化する（英字ラベル + `h2` + リード文。ラベルの左にオレンジのドット）。
@@ -462,7 +463,7 @@ export const site = {
 
 ### 8.2 アイキャッチ `#hero`
 
-- 高さ：`min-height: calc(100svh - var(--header-height) - var(--header-offset) * 2)`（sticky のヘッダーが文書内で場所を取るので、その分を引いて合計 1 画面にする）
+- 高さ：`margin-top: calc(var(--header-block) * -1)` でヘッダーの裏まで広げ、`min-height: 100svh` にする。上下に同じ `padding-block: calc(var(--header-block) + var(--space-l))` を取り、中身を画面全体の高さに対して中央に揃える。背景は `--color-bg`
 - 中身は `featured: true` の作品
 - デスクトップは 2 カラム（テキスト 5 : 画像 7）、モバイルは画像を上にして縦に積む
 - テキスト側
