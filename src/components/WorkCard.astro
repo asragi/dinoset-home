@@ -17,7 +17,7 @@ const event = data.events.at(-1);
     <Picture
       src={data.keyImage}
       formats={["avif", "webp"]}
-      widths={imageWidths(data.keyImage, [320, 480, 640])}
+      widths={imageWidths(data.keyImage, [320, 480, 640, 960])}
       sizes="(min-width: 23rem) 320px, 100vw"
       alt={`${data.title}のキービジュアル`}
       loading="lazy"
