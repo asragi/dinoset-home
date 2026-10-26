@@ -37,7 +37,7 @@
   playTime: { min: 25, max: 45 }
   age: 8
   genres: [対戦, ファンタジー]
-  keyImage: ../assets/works/igniter/key.png
+  keyImage: ../assets/works/igniter/key.jpg
   gallery:
     - ../assets/works/igniter/gallery-1.png
     - ../assets/works/igniter/gallery-2.jpg

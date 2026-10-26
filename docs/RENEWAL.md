@@ -231,7 +231,7 @@ export const site = {
   playTime: { min: 25, max: 45 }
   age: 8
   genres: [対戦, ファンタジー]
-  keyImage: ../assets/works/igniter/key.png
+  keyImage: ../assets/works/igniter/key.jpg
   gallery:
     - ../assets/works/igniter/gallery-1.png
     - ../assets/works/igniter/gallery-2.jpg
@@ -256,7 +256,7 @@ export const site = {
 | `crash-combo-kungfu/gallery-2.png` | https://i.gyazo.com/2b0def56c8c9d11b29694c93a6c720c0.png | ギャラリー |
 | `crash-combo-kungfu/playguide-0.png` | https://img.gamemarket.jp/20260517_165431_playguide00.png | ギャラリー |
 | `crash-combo-kungfu/playguide-1.png` | https://img.gamemarket.jp/20260517_165428_playguide01.png | ギャラリー |
-| `igniter/key.png` | https://i.gyazo.com/aace94a99ee11268d24cf16cbb436340.png | キービジュアル |
+| `igniter/key.jpg` | https://pbs.twimg.com/media/GLISbNobsAAx9aR?format=jpg&name=4096x4096 | キービジュアル |
 | `igniter/gallery-1.png` | https://i.gyazo.com/a63e4f3287b5e34859ce407dd6eacf42.png | ギャラリー |
 | `igniter/gallery-2.jpg` | https://i.gyazo.com/9e890532bfad512013ad4165365e9ad3.jpg | ギャラリー |
 
