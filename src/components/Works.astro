@@ -53,6 +53,7 @@ const STAGGER_MS = 80; // §7.5
   }
 
   .work-list :global(.work-card__media) {
+    width: min(100%, var(--work-media-width));
     aspect-ratio: var(--work-image-ratio);
     overflow: hidden;
     background: var(--color-bg);
@@ -74,7 +75,7 @@ const STAGGER_MS = 80; // §7.5
 
   @container work-list (min-width: 40rem) {
     .work-list :global(.work-card) {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-columns: minmax(0, var(--work-media-width)) minmax(0, 1fr);
       gap: var(--space-l);
     }
   }

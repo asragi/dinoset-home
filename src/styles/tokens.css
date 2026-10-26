@@ -90,7 +90,8 @@
   );
   --hero-art-mobile-height: min(56svh, 30rem);
   --hero-title-fit: 16cqi; /* longest phrase of the title fits on one line */
-  --work-image-ratio: 16 / 10; /* §8.3 */
+  --work-image-ratio: 3 / 4; /* §8.3: key visuals are portrait */
+  --work-media-width: 20rem; /* §8.3: caps the portrait frame's height */
 
   /* Motion */
   --reveal-distance: 16px; /* §7.5 */

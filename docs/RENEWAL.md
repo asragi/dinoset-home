@@ -495,7 +495,7 @@ export const site = {
 ```
 
 - クリックできる範囲は、`.work-card { position: relative }` と `.work-card__trigger::after { content: ""; position: absolute; inset: 0 }` で行全体に広げる（`<button>` の中には見出しや画像を入れられないため）。`.work-card__external` は広げた範囲より手前に出すため `position: relative; z-index: 1` にする。このリンクがあるので、JS が動かなくてもゲームマーケットへ移動できる
-- レイアウト：デスクトップは左に画像（16:10）、右にテキスト。モバイルは画像を上にして縦に積む
+- レイアウト：キービジュアルは縦長を前提に、画像枠を 3:4 にする。幅は最大 `--work-media-width`（20rem）。デスクトップは左に画像、右にテキスト。モバイルは画像を上にして縦に積む（枠は左寄せ）
 - ホバー：画像を `scale(1.03)` にし（親の `overflow: hidden` で切り抜く）、「詳細を見る」の矢印を右へ 4px 動かす
 - ComingSoonCard（`status: coming-soon`）：画像の位置に `--color-bg` のプレースホルダを置き、中央に `.badge`「Coming soon」を表示する。`title` と `catchcopy` を出す。クリックはできない
 
