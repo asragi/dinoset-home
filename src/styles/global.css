@@ -39,6 +39,11 @@ a:hover {
   outline-offset: var(--focus-offset);
 }
 
+/* main is the skip-link target and starts at the page edge: keep its ring inside. */
+main:focus-visible {
+  outline-offset: calc(var(--focus-width) * -1);
+}
+
 html:has(dialog[open]) {
   overflow: hidden;
 }
