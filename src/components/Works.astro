@@ -30,6 +30,10 @@ const STAGGER_MS = 80; // §7.5
 </section>
 
 <style>
+  #works {
+    background: var(--color-surface);
+  }
+
   .work-list {
     container: work-list / inline-size;
   }
@@ -51,7 +55,7 @@ const STAGGER_MS = 80; // §7.5
   .work-list :global(.work-card__media) {
     aspect-ratio: var(--work-image-ratio);
     overflow: hidden;
-    background: var(--color-surface);
+    background: var(--color-bg);
     border-radius: var(--radius-m);
   }
 

@@ -21,10 +21,9 @@
 
 | 項目 | 内容 |
 | --- | --- |
-| ページ構成 | ヘッダー / アイキャッチ / お知らせ / 作品 / メンバー / お問い合わせ / フッター（§8） |
+| ページ構成 | ヘッダー / アイキャッチ / 作品 / メンバー / お問い合わせ / フッター（§8） |
 | ヘッダー | 両端が半円のピル型。左にロゴアイコンと「恐竜定食」。追従し、アンカーリンクと SNS を置く |
 | アイキャッチ | 最新作「クラッシュ・コンボ・カンフー！」を 1 画面分の高さで見せる |
-| お知らせ | X の公式アカウントのタイムラインを埋め込む。表示されない場合に備えて X へのリンクも出す（§8.3） |
 | 作品 | 3 点を縦に並べる（3 点目は Coming soon）。クリックで同じページ内にダイアログを開き、通販とゲームマーケットへリンクする |
 | メンバー | 現行の 2 名（如月まこと / euraru） |
 | お問い合わせ | EmailJS のフォームを作り直して残す |
@@ -66,7 +65,7 @@ public/icon/              # src/assets/members/ に移す
 ### 引き継ぐ
 
 - `public/logo.png`：README から参照するので public にも残す（README の URL は新ドメインに書き換える）。サイト内では `src/assets/logo.png` にコピーして使う
-- EmailJS の Service ID、Template ID、Public Key と、テンプレートの変数名（§8.7）
+- EmailJS の Service ID、Template ID、Public Key と、テンプレートの変数名（§8.6）
 
 ---
 
@@ -133,7 +132,6 @@ iOS Safari 17.5 以上、Chrome / Edge / Firefox の最新 2 バージョン。C
     │   ├── GlobalHeader.astro
     │   ├── SectionHeading.astro
     │   ├── Hero.astro
-    │   ├── XTimeline.astro
     │   ├── Works.astro
     │   ├── WorkCard.astro
     │   ├── ComingSoonCard.astro
@@ -149,8 +147,7 @@ iOS Safari 17.5 以上、Chrome / Edge / Firefox の最新 2 バージョン。C
     │   ├── header.ts            # スクロール時の状態変化
     │   ├── reveal.ts            # フェードイン
     │   ├── work-dialog.ts
-    │   ├── contact-form.ts
-    │   └── lazy-x-embed.ts
+    │   └── contact-form.ts
     └── styles/
         ├── tokens.css
         ├── reset.css
@@ -192,7 +189,7 @@ export const site = {
 - `featured: true` はちょうど 1 件にする。zod は 1 件ずつしか検証できないので、`src/lib/works.ts`（`getCollection` してソートする関数）で件数を数え、1 件でなければ `throw` してビルドを失敗させる
 - 画像パスは **YAML ファイルから見た相対パス**。スキーマでは `image()` で受ける
 - スキーマは `status` で分ける判別共用体にする（`coming-soon` で必須なのは `order`・`title`・`catchcopy` だけ）
-- `events` は古い順に並べ、`date`（初日、`YYYY-MM-DD`）を持たせる。アイキャッチには最後の要素を出し、`date` がビルド日以降なら「次回出展」、過ぎていれば「頒布」と表示する。`date` がなければ「頒布」とする。`date` のスキーマは `z.coerce.date().nullable()`（YAML は引用符なしの日付を `Date` として読むため）で、比較は日本時間（Asia/Tokyo）の日付で行う。作品カード（§8.4）には最後の要素の `name` だけをラベルなしで出す
+- `events` は古い順に並べ、`date`（初日、`YYYY-MM-DD`）を持たせる。アイキャッチには最後の要素を出し、`date` がビルド日以降なら「次回出展」、過ぎていれば「頒布」と表示する。`date` がなければ「頒布」とする。`date` のスキーマは `z.coerce.date().nullable()`（YAML は引用符なしの日付を `Date` として読むため）で、比較は日本時間（Asia/Tokyo）の日付で行う。作品カード（§8.3）には最後の要素の `name` だけをラベルなしで出す
 
 ```yaml
 - id: crash-combo-kungfu
@@ -428,7 +425,6 @@ export const site = {
   <header id="global-header">…</header>
   <main id="main">
     <section id="hero">…</section>
-    <section id="news">…</section>
     <section id="works">…</section>
     <section id="members">…</section>
     <section id="contact">…</section>
@@ -441,13 +437,11 @@ export const site = {
 - id は固定する（アンカーリンクの飛び先であり、オーナーがスタイルを直すときの起点にもなる）
 - 各セクションに `scroll-margin-top: calc(var(--header-height) + var(--header-offset) * 2)` を設定する
 - 見出しの階層：`h1` は 1 つだけで、`.visually-hidden` の「恐竜定食 ボードゲーム制作サークル」を `#hero` の先頭に置く。アイキャッチの作品タイトルと各セクションの見出しは `h2`、作品・メンバー名は `h3`
-- 「お知らせ」の位置（アイキャッチと作品の間）は当初の構成になかったもの。Phase 3 でオーナーに確認する
 
 セクション見出しは `SectionHeading.astro` で共通化する（英字ラベル + `h2` + リード文。ラベルの左にオレンジのドット）。
 
 | id | ラベル | h2 | リード |
 | --- | --- | --- | --- |
-| `#news` | News | お知らせ | なし |
 | `#works` | Works | 作品 | なし |
 | `#members` | Members | メンバー | なし |
 | `#contact` | Contact | お問い合わせ | 作品やイベントに関するご質問はこちらから。 |
@@ -479,22 +473,9 @@ export const site = {
   - ボタン：`.button-primary`「くわしく見る」（`data-work-id` でダイアログを開く）、`.button-secondary`「ゲームマーケットで見る」。`links.shop` があれば「通販で購入」を primary にし、「くわしく見る」を secondary にする
 - 画像側：キービジュアルを `--radius-m` で大きく見せる。装飾はしない。`loading="eager"` と `fetchpriority="high"` を付ける
 
-### 8.3 お知らせ `#news`
+### 8.3 作品一覧 `#works`
 
-- X の公式アカウント（`site.sns.x`）のタイムラインを埋め込む。publish.x.com の埋め込みコード（`<a class="twitter-timeline">`）に `data-dnt="true"`、`data-lang="ja"`、`data-height="600"`、`data-chrome="noheader nofooter"` を付ける
-- 制約：2023 年以降、X にログインしていない閲覧者には、タイムラインが「Nothing to see here」と空で表示される。中身は別ドメインの iframe なので、空かどうかをページ側から判定することはできない
-- フォールバックは、埋め込みの下に常に置く「X で最新情報を見る」のリンク 1 つだけにする（空表示のときもこれで X へ行ける）
-- 埋め込みが描画されないと判定できる場合は、埋め込みの領域（`<a class="twitter-timeline">` と `min-height`）を畳み、リンクだけを残す
-  - `widgets.js` の `<script>` で `onerror` が起きたら、すぐに畳む
-  - 読み込み後 8 秒以内に `rendered` が発火しなければ畳む。その後に `rendered` が来たら領域を元に戻す
-  - イベントは公式の非同期スニペット（`window.twttr` のスタブと `twttr.ready()`）で登録する（読み込み完了前に `bind` して失敗するのを防ぐ）
-  - JS が無効な環境では `html:not(.js) .twitter-timeline { display: none }` で隠す
-- `widgets.js` は、IntersectionObserver でセクションが近づいてから読み込む（`src/scripts/lazy-x-embed.ts`）
-- 幅は最大 550px で中央に置く。読み込み前後の高さの変化を抑えるため、埋め込み要素に `min-height` を指定する
-- 背景は `--color-surface`
-
-### 8.4 作品一覧 `#works`
-
+- 背景は `--color-surface`。画像枠の地は `--color-bg` にして背景から浮かせる
 - `order` 順に 1 列で並べる。行の間は `--space-l` の余白と 1px の罫線で区切る
 - WorkCard（`status: released`）のマークアップ
 
@@ -515,9 +496,9 @@ export const site = {
 - クリックできる範囲は、`.work-card { position: relative }` と `.work-card__trigger::after { content: ""; position: absolute; inset: 0 }` で行全体に広げる（`<button>` の中には見出しや画像を入れられないため）。`.work-card__external` は広げた範囲より手前に出すため `position: relative; z-index: 1` にする。このリンクがあるので、JS が動かなくてもゲームマーケットへ移動できる
 - レイアウト：デスクトップは左に画像（16:10）、右にテキスト。モバイルは画像を上にして縦に積む
 - ホバー：画像を `scale(1.03)` にし（親の `overflow: hidden` で切り抜く）、「詳細を見る」の矢印を右へ 4px 動かす
-- ComingSoonCard（`status: coming-soon`）：画像の位置に `--color-surface` のプレースホルダを置き、中央に `.badge`「Coming soon」を表示する。`title` と `catchcopy` を出す。クリックはできない
+- ComingSoonCard（`status: coming-soon`）：画像の位置に `--color-bg` のプレースホルダを置き、中央に `.badge`「Coming soon」を表示する。`title` と `catchcopy` を出す。クリックはできない
 
-### 8.5 作品ダイアログ `#work-dialog`
+### 8.4 作品ダイアログ `#work-dialog`
 
 - 開く：`[data-work-id]` のボタン（WorkCard とアイキャッチの両方）を押すと、`<template id="work-{id}">`（ビルド時に作品ごとに出力）の中身をダイアログに複製して `showModal()` する。JS は `src/scripts/work-dialog.ts` だけ
 - 閉じる：閉じるボタン、Esc キー、背景クリック。背景クリックは、中身を `.work-dialog__inner` で包んで dialog 自体の padding を 0 にし、`event.target === dialog` で判定する。閉じるとフォーカスは開いたボタンに戻る（`showModal()` の標準の挙動）
@@ -528,13 +509,13 @@ export const site = {
 - 中身：ギャラリー（`keyImage` と `gallery`。横スクロール + `scroll-snap`）、タイトル、紹介文、メタ情報（`<dl>`）、ジャンル（`--color-surface` 地のピル）、出展イベント、リンクボタン
 - `links.shop` が `null` のときは「通販準備中」を無効状態のボタンとして表示する
 
-### 8.6 メンバー `#members`
+### 8.5 メンバー `#members`
 
 - MemberCard：円形アイコン（88px）、名前（`h3`）、役割（`--color-muted`）、SNS とメールのアイコンリンク（ホバーで `--color-accent`）
 - カードは `--color-surface` の地、`--radius-m`、影なし
 - 768px 以上は `grid-template-columns: repeat(2, minmax(0, 1fr))` で 2 列、未満は 1 列
 
-### 8.7 お問い合わせ `#contact`
+### 8.6 お問い合わせ `#contact`
 
 - フォームは最大幅 640px で中央に置く
 - 項目：お名前（必須、最大 50 文字）、メールアドレス（必須、`type="email"`）、本文（必須、最大 2000 文字）。送信ボタンは `.button-primary`
@@ -556,7 +537,7 @@ await send(site.emailjs.serviceId, site.emailjs.templateId, {
 
 - EmailJS のダッシュボードで許可ドメインを制限する（Phase 6）
 
-### 8.8 フッター `#global-footer`
+### 8.7 フッター `#global-footer`
 
 - 上に 1px の罫線。背景は白
 - 左：ロゴアイコン、「恐竜定食」、`site.tagline`
@@ -587,8 +568,8 @@ await send(site.emailjs.serviceId, site.emailjs.templateId, {
 
 ### 9.3 パフォーマンス
 
-- Lighthouse（モバイル）の目標：Performance 95 以上、Accessibility 100、Best Practices 100、SEO 100。X の埋め込みはサードパーティ Cookie で Best Practices を下げるため、Lighthouse CLI の `--blocked-url-patterns="*platform.twitter.com*"` で X をブロックして計測する
-- 初回表示の JS は、X の埋め込みを除いて数 KB 程度に収める
+- Lighthouse（モバイル）の目標：Performance 95 以上、Accessibility 100、Best Practices 100、SEO 100
+- 初回表示の JS は数 KB 程度に収める
 - 画像はすべて `astro:assets` で読み込み、サイズを指定して CLS を防ぐ
 
 ---
@@ -639,20 +620,19 @@ await send(site.emailjs.serviceId, site.emailjs.templateId, {
 
 - [ ] `BaseLayout.astro`（§9.1、フォント、`js` クラスを付けるインラインスクリプト）
 - [ ] §8 の各コンポーネントを、スタイルなしのマークアップで作る
-- [ ] オーナーに構造と id / class 名、お知らせの位置を確認してもらう
+- [ ] オーナーに構造と id / class 名を確認してもらう
 
 ### Phase 4：スタイル
 
 - [ ] `tokens.css`、`reset.css`、`global.css`（§7.3、§7.4）
-- [ ] §8.1〜§8.8 の各セクション
+- [ ] §8.1〜§8.7 の各セクション
 - [ ] §7.6 のブレークポイントと 360 / 390 / 768 / 1024 / 1280 / 1440px で崩れがないか確認する
 
 ### Phase 5：インタラクション
 
 - [ ] ヘッダーのスクロール時の変化とモバイルメニュー（§8.1）
-- [ ] 作品ダイアログ（§8.5）
-- [ ] お問い合わせフォーム（§8.7）
-- [ ] X 埋め込みの遅延読み込み（§8.3）
+- [ ] 作品ダイアログ（§8.4）
+- [ ] お問い合わせフォーム（§8.6）
 - [ ] フェードイン（§7.5）
 - [ ] `prefers-reduced-motion` への対応（§9.2）
 
@@ -681,7 +661,6 @@ await send(site.emailjs.serviceId, site.emailjs.templateId, {
 - [ ] 作品が `order` 順に 3 点並び、3 点目は Coming soon になっている
 - [ ] 作品カードとアイキャッチのボタンからダイアログが開く。Esc キー・背景クリック・閉じるボタンで閉じ、`#work={id}` の URL で直接開ける
 - [ ] お問い合わせフォームから送信すると、名前・メールアドレス・本文が入ったメールが EmailJS 経由で届く
-- [ ] お知らせに X のタイムライン（ログイン時）と X へのリンクが表示され、`widgets.js` をブロックするとリンクだけが表示される
 - [ ] YAML に作品やメンバーを追加・変更すると、ビルド後の表示に反映される
 - [ ] 360〜1440px で横スクロールやレイアウト崩れがない
 - [ ] JS を無効にしても全セクションと、各作品の基本情報・ゲームマーケットへのリンクが表示される（ダイアログとフォーム送信は JS が必要）
