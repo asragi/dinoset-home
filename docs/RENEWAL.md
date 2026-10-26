@@ -564,6 +564,7 @@ await send(site.emailjs.serviceId, site.emailjs.templateId, {
 - コントラスト比：文字は 4.5:1 以上、入力欄の枠などの UI 部品は 3:1 以上
 - 画像にはすべて `alt` を付け、装飾画像は `alt=""` にする
 - フォーカスリングを消さない。`:focus-visible` で `--color-accent` の 2px アウトラインを `outline-offset: 2px` で付ける（主ボタンの地と同化しないように）
+  - 例外：スキップリンクの飛び先の `main` は画面の端から始まるので、`outline-offset: calc(var(--focus-width) * -1)` で内側に描く
 - `prefers-reduced-motion: reduce` のときは、フェードイン、アイキャッチのアニメーション、ホバーの動き、ダイアログとヘッダーのトランジション、スムーススクロールをすべて止める
 - キーボードだけですべての操作ができること
 
