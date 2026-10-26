@@ -25,7 +25,7 @@
 | ヘッダー | 両端が半円のピル型。左にロゴアイコンと「恐竜定食」。追従し、アンカーリンクと SNS を置く |
 | アイキャッチ | 最新作「クラッシュ・コンボ・カンフー！」を 1 画面分の高さで見せる |
 | 作品 | 3 点を縦に並べる（3 点目は Coming soon）。クリックで同じページ内にダイアログを開き、通販とゲームマーケットへリンクする |
-| メンバー | 現行の 2 名（如月まこと / euraru） |
+| メンバー | 現行の 2 名（asRagi / euraru） |
 | お問い合わせ | EmailJS のフォームを作り直して残す |
 | デザイン | ロゴや「定食」のモチーフは使わない。ロゴの色はアクセントとしてだけ使う。https://vrc-ai.com/ を参考にするが、盗用にならないようにする（§7） |
 | アニメーション | スクロールに連動したフェードインを要所にだけ入れる（§7.5） |
@@ -267,13 +267,13 @@ export const site = {
 並び順は作品と同じく `order` でソートする。
 
 ```yaml
-- id: ksrgmkt
+- id: asragi
   order: 1
-  name: 如月まこと
+  name: asRagi
   role: ゲームデザイナー
-  icon: ../assets/members/ksrgmkt.png
+  icon: ../assets/members/asragi.jpg
   links:
-    x: https://x.com/mktksrg
+    x: https://x.com/asRagi
 
 - id: euraru
   order: 2
