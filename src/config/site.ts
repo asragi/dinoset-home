@@ -14,8 +14,8 @@ export const site = {
     publicKey: "IHJjlIOiDwkmYdrTk", // 公開前提のキー
   },
   nav: [
-    { href: "#works", label: "作品" },
-    { href: "#members", label: "メンバー" },
-    { href: "#contact", label: "お問い合わせ" },
+    { href: "/#works", label: "作品" },
+    { href: "/#members", label: "メンバー" },
+    { href: "/#contact", label: "お問い合わせ" },
   ],
 } as const;

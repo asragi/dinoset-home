@@ -6,12 +6,30 @@ import Works from "../components/Works.astro";
 import Members from "../components/Members.astro";
 import ContactForm from "../components/ContactForm.astro";
 import GlobalFooter from "../components/GlobalFooter.astro";
-import WorkDialog from "../components/WorkDialog.astro";
-import { getWorks } from "../lib/works";
+import { site } from "../config/site";
+import { getWorks, isReleased } from "../lib/works";
 const { works, featured } = await getWorks();
+const workIds = works.filter(isReleased).map((work) => work.id);
 ---
 
-<BaseLayout ogImageAlt={featured.data.title}>
+<BaseLayout
+  title={`${site.name} | ${site.tagline}`}
+  description={site.description}
+  ogImage="/og.png"
+  ogImageAlt={featured.data.title}
+>
+  <script slot="head" is:inline define:vars={{ workIds }}>
+    // WORK-PAGES §10: send old dialog links (/#work={id}) to the work page.
+    const match = /^#work=(.+)$/.exec(location.hash);
+    if (match) {
+      try {
+        const id = decodeURIComponent(match[1]);
+        if (workIds.includes(id)) location.replace(`/works/${id}/`);
+      } catch {
+        /* Ignore malformed URL encoding. */
+      }
+    }
+  </script>
   <GlobalHeader />
   <main id="main" tabindex="-1">
     <Hero work={featured} />
@@ -20,5 +38,4 @@ const { works, featured } = await getWorks();
     <ContactForm />
   </main>
   <GlobalFooter />
-  <WorkDialog works={works} />
 </BaseLayout>

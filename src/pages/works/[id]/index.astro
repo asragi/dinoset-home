@@ -1,0 +1,139 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from "astro";
+import { render } from "astro:content";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import GlobalHeader from "../../../components/GlobalHeader.astro";
+import WorkHero from "../../../components/WorkHero.astro";
+import WorkInfo from "../../../components/WorkInfo.astro";
+import OtherWorks from "../../../components/OtherWorks.astro";
+import GlobalFooter from "../../../components/GlobalFooter.astro";
+import { site } from "../../../config/site";
+import { getWorkPaths } from "../../../lib/works";
+
+export const getStaticPaths = (() => getWorkPaths()) satisfies GetStaticPaths;
+
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+
+const { work, others } = Astro.props as Props;
+const { data } = work;
+const { Content } = await render(work);
+const hasBody = Boolean(work.body?.trim());
+---
+
+<BaseLayout
+  title={`${data.title} | ${site.name}`}
+  description={data.description}
+  ogImage={`/works/${work.id}/og.png`}
+  ogImageAlt={data.title}
+  accent={data.accent}
+>
+  <GlobalHeader />
+  <main id="main" tabindex="-1">
+    <WorkHero work={work} />
+    <section id="work-intro">
+      <div class="container">
+        <p class="work-intro__lead">{data.description}</p>
+      </div>
+    </section>
+    {hasBody && (
+      <div id="work-body" class="container">
+        <Content />
+      </div>
+    )}
+    <WorkInfo work={work} />
+    <OtherWorks works={others} />
+  </main>
+  <GlobalFooter />
+</BaseLayout>
+
+<style>
+  .work-intro__lead {
+    max-width: var(--work-text-width);
+    font-size: var(--text-lead);
+  }
+
+  /* Sections built by rehype-work-sections (WORK-PAGES §5.2, §6.4). */
+  #work-body {
+    display: grid;
+    gap: var(--space-section);
+    padding-top: var(--space-section);
+  }
+
+  #work-body :global(.work-section) {
+    display: grid;
+    gap: var(--space-l);
+  }
+
+  #work-body :global(.work-section__text) {
+    max-width: var(--work-text-width);
+  }
+
+  #work-body :global(h2) {
+    margin-bottom: var(--space-m);
+    font-size: var(--text-h2);
+  }
+
+  #work-body :global(h3) {
+    margin-block: var(--space-m) var(--space-xs);
+    font-size: var(--text-h3);
+  }
+
+  #work-body :global(p + p),
+  #work-body :global(ul),
+  #work-body :global(ol) {
+    margin-top: var(--space-s);
+  }
+
+  #work-body :global(ul),
+  #work-body :global(ol) {
+    padding-inline-start: var(--space-m);
+  }
+
+  #work-body :global(ul) {
+    list-style: disc;
+  }
+
+  #work-body :global(ol) {
+    list-style: decimal;
+  }
+
+  #work-body :global(.work-section__text a) {
+    text-decoration: underline;
+  }
+
+  #work-body :global(.work-section__media) {
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  #work-body :global(.work-section__media img) {
+    border-radius: var(--radius-m);
+  }
+
+  #work-body :global([data-media="multiple"] .work-section__media) {
+    max-width: var(--work-media-max);
+  }
+
+  /* Fill the column, but never upscale an image past its own width. */
+  #work-body :global([data-media="multiple"] img) {
+    width: auto;
+    max-width: 100%;
+  }
+
+  /* One image: text and image side by side (5 : 7), alternating sides. */
+  @media (min-width: 48rem) {
+    #work-body :global([data-media="single"]) {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      align-items: center;
+    }
+
+    #work-body :global([data-media="single"][data-side="start"]) {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    }
+
+    #work-body
+      :global([data-media="single"][data-side="start"] .work-section__media) {
+      order: -1;
+    }
+  }
+</style>

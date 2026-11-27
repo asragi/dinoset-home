@@ -1,6 +1,6 @@
 import { defineCollection } from "astro:content";
 import { z } from "astro/zod";
-import { file } from "astro/loaders";
+import { file, glob } from "astro/loaders";
 
 const range = z.object({
   min: z.number().int().positive(),
@@ -13,7 +13,7 @@ const common = {
 };
 
 const works = defineCollection({
-  loader: file("src/data/works.yaml"),
+  loader: glob({ pattern: "*.md", base: "src/content/works" }),
   schema: ({ image }) =>
     z.discriminatedUnion("status", [
       z.object({
@@ -34,7 +34,9 @@ const works = defineCollection({
         age: z.number().int().positive(),
         genres: z.array(z.string()),
         keyImage: image(),
-        gallery: z.array(image()),
+        // Checked against white (4.5:1) when the work pages are built.
+        accent: z.string().regex(/^#[0-9a-f]{6}$/i),
+        ogImage: image().optional(), // 1200×630; generated when omitted
         links: z.object({ gameMarket: z.url(), shop: z.url().nullable() }),
       }),
       z.object({ ...common, status: z.literal("coming-soon") }),

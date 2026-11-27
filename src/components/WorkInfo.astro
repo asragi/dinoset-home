@@ -1,0 +1,130 @@
+---
+import SectionHeading from "./SectionHeading.astro";
+import {
+  formatDate,
+  isoDate,
+  metaItems,
+  type ReleasedWork,
+} from "../lib/works";
+
+interface Props {
+  work: ReleasedWork;
+}
+
+const { data } = Astro.props.work;
+// `events` is stored oldest first (RENEWAL §6.2); list the newest first.
+const events = data.events.toReversed();
+---
+
+<section id="work-info" class="section" aria-labelledby="work-info-title">
+  <div class="container">
+    <SectionHeading id="work-info-title" label="Info" title="ゲーム情報" />
+    <div class="work-info" data-reveal>
+      <dl class="work-details">
+        {metaItems(data).map(({ label, value }) => (
+          <div>
+            <dt>{label}</dt>
+            <dd>{value}</dd>
+          </div>
+        ))}
+      </dl>
+      <ul class="genre-list" aria-label="ジャンル">
+        {data.genres.map((genre) => (
+          <li>{genre}</li>
+        ))}
+      </ul>
+      <h3 class="work-info__subheading">出展イベント</h3>
+      <ul class="event-list">
+        {events.map((event) => (
+          <li>
+            <span>
+              {event.name} {event.booth}
+            </span>
+            {event.date && (
+              <time datetime={isoDate(event.date)}>
+                {formatDate(event.date)}
+              </time>
+            )}
+          </li>
+        ))}
+      </ul>
+      <div class="button-row">
+        {data.links.shop ? (
+          <a class="button-primary" href={data.links.shop}>
+            通販で購入
+          </a>
+        ) : (
+          <button class="button-primary" type="button" disabled>
+            通販準備中
+          </button>
+        )}
+        <a class="button-secondary" href={data.links.gameMarket}>
+          ゲームマーケットで見る
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .work-info {
+    max-width: var(--work-text-width);
+  }
+
+  .work-details {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-s);
+    padding-block: var(--space-m);
+    border-block: var(--border-width) solid var(--color-line);
+  }
+
+  .work-details dt {
+    color: var(--color-muted);
+    font-size: var(--text-caption);
+  }
+
+  .work-details dd {
+    font-weight: var(--weight-ui);
+  }
+
+  .genre-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-block: var(--space-m);
+  }
+
+  .genre-list li {
+    padding: var(--space-2xs) var(--space-s);
+    background: var(--color-surface);
+    border-radius: var(--radius-pill);
+    font-size: var(--text-caption);
+  }
+
+  .work-info__subheading {
+    margin-top: var(--space-l);
+    font-size: var(--text-body);
+  }
+
+  .event-list {
+    margin-block: var(--space-xs) var(--space-l);
+  }
+
+  .event-list li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-2xs) var(--space-s);
+    padding-block: var(--space-xs);
+    border-bottom: var(--border-width) solid var(--color-line);
+    color: var(--color-muted);
+    font-size: var(--text-caption);
+  }
+
+  @media (min-width: 48rem) {
+    .work-details {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>
