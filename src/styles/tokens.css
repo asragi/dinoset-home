@@ -94,7 +94,6 @@
     100svh - var(--header-block) * 2 - var(--space-l) * 2
   );
   --work-hero-art-mobile-height: 80svh;
-  --work-text-width: 40em;
   --other-work-thumb-width: 7rem; /* §6.7: small cards */
   --other-work-card-min: 22rem;
 
