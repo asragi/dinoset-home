@@ -175,7 +175,7 @@ export default defineConfig({
 ```
 
 1. `h2` から次の `h2` の直前までを `<section class="work-section">` で包む
-2. セクション内で、画像だけからなる段落を `<div class="work-section__media">` に移し、画像を 1 枚ずつ `<figure>` で包む。それ以外は `<div class="work-section__text">` に入れる。画像は本文中の位置に関係なくセクションの末尾にまとまる
+2. セクション内で、画像だけからなる段落を `<div class="work-section__media">` に移し、画像を 1 枚ずつ `<figure>` で包む。それ以外は `<div class="work-section__text">` に入れ、そのうち `h2` 以外を `<div class="work-section__body">` で包む。画像は本文中の位置に関係なくセクションの末尾にまとまる
 3. 画像の枚数で `data-media` を付ける：`none`（0 枚）、`single`（1 枚）、`multiple`（2 枚以上）
 4. `data-media="single"` のセクションに、出てきた順で `data-side="end"`、`"start"`、`"end"`、… を交互に付ける（画像を置く側）
 5. 各セクションに `data-reveal` を付ける（§7.5 のフェードイン）
@@ -222,7 +222,7 @@ unified の処理系では、利用者の rehype プラグインが Astro の画
 
 ### 6.3 リード文 `#work-intro`
 
-- `description` を `--text-lead` で出す。最大幅は `--work-text-width`（40em）で、列をページの中央に置く
+- `description` を `--text-lead` で出す。コンテナの幅いっぱいに出す（ヘッダーやヒーローと左右の端をそろえる）
 
 ### 6.4 本文 `#work-body`
 
@@ -230,9 +230,9 @@ unified の処理系では、利用者の rehype プラグインが Astro の画
 
 | `data-media` | PC（48rem 以上） | モバイル |
 | --- | --- | --- |
-| `none` | 文章だけ。最大幅 `--work-text-width` の列を中央に置く | 同左 |
+| `none` | 見出しと文章を 5 : 7 の 2 カラム（コンテナの幅いっぱい） | 見出し → 文章の順に縦に積む |
 | `single` | 文章と画像を 5 : 7 の 2 カラム。`data-side` が `end` なら画像を右、`start` なら左 | 文章 → 画像の順に縦に積む |
-| `multiple` | 中央の文章列の下に、画像を 2 列で並べる。画像の列は最大 `--work-media-max`（880px）で中央に置く | 文章の下に画像を縦に積む（幅いっぱい） |
+| `multiple` | 見出しと文章は `none` と同じ。その下に画像をコンテナの幅いっぱいに 2 列で並べる | 文章の下に画像を縦に積む（幅いっぱい） |
 
 - セクション間は `--space-section`、セクション内の文章と画像の間は `--space-l`
 - 本文の `h2` は `--text-h2`。英字ラベルは付けない
@@ -241,7 +241,7 @@ unified の処理系では、利用者の rehype プラグインが Astro の画
 
 ### 6.5 ゲーム情報 `#work-info`（`WorkInfo.astro`）
 
-- 見出しごと最大幅 `--work-text-width` の列に入れ、ページの中央に置く
+- PC では見出しとゲーム情報を 5 : 7 の 2 カラムにする（本文のセクションと同じ）
 - `SectionHeading`（ラベル `Info`、`h2`「ゲーム情報」）
 - メタ情報を `<dl>` で（`metaItems()`）。続けてジャンルのピル
 - 出展イベント（`h3`）：新しい順に「イベント名 ブース番号」。日付があれば併記
