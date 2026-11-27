@@ -222,7 +222,7 @@ unified の処理系では、利用者の rehype プラグインが Astro の画
 
 ### 6.3 リード文 `#work-intro`
 
-- `description` を `--text-lead` で出す。最大幅は `--work-text-width`（40em）で左寄せ
+- `description` を `--text-lead` で出す。最大幅は `--work-text-width`（40em）で、列をページの中央に置く
 
 ### 6.4 本文 `#work-body`
 
@@ -230,9 +230,9 @@ unified の処理系では、利用者の rehype プラグインが Astro の画
 
 | `data-media` | PC（48rem 以上） | モバイル |
 | --- | --- | --- |
-| `none` | 文章だけ。最大幅 `--work-text-width` | 同左 |
+| `none` | 文章だけ。最大幅 `--work-text-width` の列を中央に置く | 同左 |
 | `single` | 文章と画像を 5 : 7 の 2 カラム。`data-side` が `end` なら画像を右、`start` なら左 | 文章 → 画像の順に縦に積む |
-| `multiple` | 文章の下に画像を縦に並べる。画像の幅は最大 `--work-media-max`（880px） | 同左（幅いっぱい） |
+| `multiple` | 中央の文章列の下に、画像を 2 列で並べる。画像の列は最大 `--work-media-max`（880px）で中央に置く | 文章の下に画像を縦に積む（幅いっぱい） |
 
 - セクション間は `--space-section`、セクション内の文章と画像の間は `--space-l`
 - 本文の `h2` は `--text-h2`。英字ラベルは付けない
@@ -241,6 +241,7 @@ unified の処理系では、利用者の rehype プラグインが Astro の画
 
 ### 6.5 ゲーム情報 `#work-info`（`WorkInfo.astro`）
 
+- 見出しごと最大幅 `--work-text-width` の列に入れ、ページの中央に置く
 - `SectionHeading`（ラベル `Info`、`h2`「ゲーム情報」）
 - メタ情報を `<dl>` で（`metaItems()`）。続けてジャンルのピル
 - 出展イベント（`h3`）：新しい順に「イベント名 ブース番号」。日付があれば併記
