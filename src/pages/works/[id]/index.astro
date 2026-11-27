@@ -49,6 +49,7 @@ const hasBody = Boolean(work.body?.trim());
 <style>
   .work-intro__lead {
     max-width: var(--work-text-width);
+    margin-inline: auto;
     font-size: var(--text-lead);
   }
 
@@ -66,6 +67,13 @@ const hasBody = Boolean(work.body?.trim());
 
   #work-body :global(.work-section__text) {
     max-width: var(--work-text-width);
+  }
+
+  /* Without the side-by-side layout, text sits in a centered column. */
+  #work-body
+    :global(.work-section:not([data-media="single"]) .work-section__text) {
+    width: 100%;
+    margin-inline: auto;
   }
 
   #work-body :global(h2) {
@@ -111,7 +119,10 @@ const hasBody = Boolean(work.body?.trim());
   }
 
   #work-body :global([data-media="multiple"] .work-section__media) {
+    width: 100%;
     max-width: var(--work-media-max);
+    margin-inline: auto;
+    align-items: start;
   }
 
   /* Fill the column, but never upscale an image past its own width. */
@@ -120,8 +131,13 @@ const hasBody = Boolean(work.body?.trim());
     max-width: 100%;
   }
 
-  /* One image: text and image side by side (5 : 7), alternating sides. */
   @media (min-width: 48rem) {
+    /* Two or more images: two columns. */
+    #work-body :global([data-media="multiple"] .work-section__media) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    /* One image: text and image side by side (5 : 7), alternating sides. */
     #work-body :global([data-media="single"]) {
       grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
       align-items: center;
