@@ -44,10 +44,6 @@ main:focus-visible {
   outline-offset: calc(var(--focus-width) * -1);
 }
 
-html:has(dialog[open]) {
-  overflow: hidden;
-}
-
 main > section {
   scroll-margin-top: var(--header-block);
 }
@@ -222,6 +218,13 @@ html:not(.js) .js-only {
 .js [data-reveal].is-revealed {
   opacity: 1;
   transform: none;
+}
+
+/* Cross-fade between pages (WORK-PAGES §9); no motion when reduced. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
 }
 
 /* Reduced motion (§9.2) */

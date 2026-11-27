@@ -50,16 +50,12 @@ const hasShop = data.links.shop !== null;
             通販で購入
           </a>
         )}
-        <button
-          class:list={[
-            hasShop ? "button-secondary" : "button-primary",
-            "js-only",
-          ]}
-          type="button"
-          data-work-id={work.id}
+        <a
+          class={hasShop ? "button-secondary" : "button-primary"}
+          href={`/works/${work.id}/`}
         >
-          くわしく見る
-        </button>
+          <span class="visually-hidden">{data.title}を</span>くわしく見る
+        </a>
         <a class="button-secondary" href={data.links.gameMarket}>
           ゲームマーケットで見る
         </a>

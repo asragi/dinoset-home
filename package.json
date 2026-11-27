@@ -16,13 +16,17 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@astrojs/markdown-remark": "^7.3.10",
     "@emailjs/browser": "^5.0.3",
     "@fontsource-variable/m-plus-2": "^5.3.1",
-    "astro": "^7.4.2"
+    "astro": "^7.4.2",
+    "sharp": "^0.35.5"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.12",
     "@eslint/js": "^10.0.1",
+    "@types/hast": "^3.0.5",
+    "@types/node": "^24.19.4",
     "eslint": "^10.13.0",
     "eslint-plugin-astro": "^3.2.1",
     "globals": "^17.13.0",

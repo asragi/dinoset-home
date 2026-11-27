@@ -26,9 +26,9 @@ const event = data.events.at(-1);
   <div class="work-card__body">
     {event && <p class="work-card__event">{event.name}</p>}
     <h3 class="work-card__title">
-      <button class="work-card__trigger" type="button" data-work-id={work.id}>
+      <a class="work-card__link" href={`/works/${work.id}/`}>
         {data.title}
-      </button>
+      </a>
     </h3>
     <p class="work-card__catch">{data.catchcopy}</p>
     <ul class="game-meta" aria-label="ゲーム情報">
@@ -36,7 +36,7 @@ const event = data.events.at(-1);
         <li>{value}</li>
       ))}
     </ul>
-    <span class="work-card__more js-only" aria-hidden="true">
+    <span class="work-card__more" aria-hidden="true">
       詳細を見る <span class="work-card__arrow">→</span>
     </span>
     <a class="work-card__external" href={data.links.gameMarket}>
@@ -63,25 +63,24 @@ const event = data.events.at(-1);
     font-size: var(--text-caption);
   }
 
-  .work-card__trigger {
-    font-weight: inherit;
-    line-height: inherit;
-    text-align: start;
+  .work-card__link,
+  .work-card__link:hover {
+    color: inherit;
   }
 
   /* Stretch the click target over the whole row (§8.3). */
-  .work-card__trigger::after {
+  .work-card__link::after {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: var(--radius-m);
   }
 
-  .work-card__trigger:focus-visible {
+  .work-card__link:focus-visible {
     outline: none;
   }
 
-  .work-card__trigger:focus-visible::after {
+  .work-card__link:focus-visible::after {
     outline: var(--focus-width) solid var(--color-accent);
     outline-offset: var(--focus-offset);
   }
@@ -125,14 +124,5 @@ const event = data.events.at(-1);
     .work-card:hover .work-card__arrow {
       transform: none;
     }
-  }
-
-  /* Without JS the dialog cannot open, so do not pretend the row is clickable. */
-  :global(html:not(.js)) .work-card__trigger {
-    cursor: auto;
-  }
-
-  :global(html:not(.js)) .work-card__trigger::after {
-    display: none;
   }
 </style>
