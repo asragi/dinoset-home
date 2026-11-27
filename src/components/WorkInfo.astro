@@ -17,7 +17,7 @@ const events = data.events.toReversed();
 ---
 
 <section id="work-info" class="section" aria-labelledby="work-info-title">
-  <div class="container work-info__column">
+  <div class="container work-info__layout">
     <SectionHeading id="work-info-title" label="Info" title="ゲーム情報" />
     <div class="work-info" data-reveal>
       <dl class="work-details">
@@ -67,10 +67,6 @@ const events = data.events.toReversed();
 </section>
 
 <style>
-  .work-info__column {
-    max-width: var(--work-text-width);
-  }
-
   .work-details {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -123,6 +119,13 @@ const events = data.events.toReversed();
   }
 
   @media (min-width: 48rem) {
+    /* Heading and details side by side, like the body sections (5 : 7). */
+    .work-info__layout {
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: var(--space-l);
+    }
+
     .work-details {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
