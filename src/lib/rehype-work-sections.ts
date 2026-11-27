@@ -4,10 +4,7 @@ import type { Element, ElementContent, Root, RootContent } from "hast";
  * WORK-PAGES §5.2: split a work's Markdown body into one section per `h2`.
  *
  * <section class="work-section" data-media="single" data-side="end" data-reveal>
- *   <div class="work-section__text">
- *     <h2>…</h2>
- *     <div class="work-section__body">…</div>
- *   </div>
+ *   <div class="work-section__text">…</div>
  *   <div class="work-section__media"><figure><img …></figure></div>
  * </section>
  *
@@ -100,12 +97,8 @@ export function rehypeWorkSections() {
       if (media === "single") {
         properties.dataSide = singles++ % 2 === 0 ? "end" : "start";
       }
-      const [heading, ...body] = text as [Element, ...ElementContent[]];
       const children = [
-        element("div", { className: ["work-section__text"] }, [
-          heading,
-          element("div", { className: ["work-section__body"] }, body),
-        ]),
+        element("div", { className: ["work-section__text"] }, text),
       ];
       if (images.length > 0) {
         children.push(
